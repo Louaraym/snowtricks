@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{% form_theme formTrick 'bootstrap_4_layout.html.twig' %}
+
+{% block title %}Ajout nouvelle figure{% endblock %}
+
+{% block body %}
+
+    <h1>Créer une nouvelle figure</h1>
+
+    {{ form_start(formTrick) }}
+
+    {{ form_row(formTrick.title, {'label' : "Nom",'attr' : {'placeholder' : "Nom de la figure"}}) }}
+    {{ form_row(formTrick.description, { 'attr' : {'placeholder' : "Description de la figure"}}) }}
+
+    <button type="submit" class="btn btn-success">Ajouter la figure</button>
+
+    {{ form_end(formTrick) }}
+
+{% endblock %}
+
+
+

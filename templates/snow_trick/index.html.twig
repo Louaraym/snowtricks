@@ -1,20 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SnowTrickController!{% endblock %}
-
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>Bienvenue dans le monde du Snowboard !</h1>
+    <section class="tricks">
+        {% for trick in tricks %}
+        <article>
+            <h2>{{trick.title}}</h2>
+            {{trick.description | raw}}
+            <div class="metadata">Ajoutée le {{trick.createdAt | date('d/m/y')}} à {{trick.createdAt | date('H:i')}}
+                </div>
+                <a href="{{ path( 'trick_show', {'id': trick.id} ) }}" class="btn btn-primary">Voir la figure</a>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/snowtricks/src/Controller/SnowTrickController.php'|file_link(0) }}">src/Controller/SnowTrickController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/www/snowtricks/templates/snow_trick/index.html.twig'|file_link(0) }}">templates/snow_trick/index.html.twig</a></code></li>
-    </ul>
-</div>
+        </article>
+        {% endfor %}
+    </section>
+
 {% endblock %}
