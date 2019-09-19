@@ -44,13 +44,10 @@ class SnowTrickController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
 
-            $trick->setCreatedAt(new \DateTime());
-
             $manager->persist($trick);
             $manager->flush();
 
             return $this->redirectToRoute('snowtricks_home');
-
         }
 
         return $this->render('snow_trick/createTrick.html.twig', [
@@ -65,7 +62,6 @@ class SnowTrickController extends AbstractController
      */
     public function showTrick(Trick $trick): Response
     {
-
         return $this->render('snow_trick/showTrick.html.twig', [
             'trick' => $trick
         ]);

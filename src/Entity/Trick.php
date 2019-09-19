@@ -36,6 +36,17 @@ class Trick
      */
     private $updatedAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\TricksGroup", inversedBy="tricks")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $tricksGroup;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -85,6 +96,18 @@ class Trick
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getTricksGroup(): ?TricksGroup
+    {
+        return $this->tricksGroup;
+    }
+
+    public function setTricksGroup(?TricksGroup $tricksGroup): self
+    {
+        $this->tricksGroup = $tricksGroup;
 
         return $this;
     }
