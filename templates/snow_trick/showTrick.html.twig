@@ -6,9 +6,9 @@
         <h2>{{trick.title}}</h2>
         {{trick.description | raw}}
         <div class="metadata">Ajoutée le {{trick.createdAt | date('d/m/y')}} à {{trick.createdAt | date('H:i')}}
+            dans le groupe : {{ trick.tricksGroup.title }}
         </div>
     </article>
-
 
 
 {% endblock %}

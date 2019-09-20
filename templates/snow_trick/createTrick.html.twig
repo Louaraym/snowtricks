@@ -5,9 +5,9 @@
 
 {% block body %}
 
-    <h1>Créer une nouvelle figure</h1>
+    <h1>Ajouter une nouvelle figure</h1>
 
-    {{ form_start(formTrick) }}
+    {{ form_start(formTrick, {'attr' : {'novalidate': "novalidate"} }) }}
 
     {{ form_row(formTrick.title, {'label' : "Nom",'attr' : {'placeholder' : "Nom de la figure"}}) }}
     {{ form_row(formTrick.tricksGroup, {'label' : "Groupe"}) }}
