@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Bienvenue dans le monde du Snowboard !</h1>
+    <section class="tricks">
+        {% for trick in tricks %}
+        <article>
+            <div class="metadata">Ajoutée le {{trick.createdAt | date('d/m/y')}} à {{trick.createdAt | date('H:i')}}
+                dans le groupe : {{ trick.tricksGroup.title }}
+            </div>
+                <a href="{{ path( 'trick_show', {'id': trick.id} ) }}" class="btn btn-primary">{{trick.title}}</a>
+            <a href="#" class="btn btn-warning">Modifier</a>
+            <a href="#" class="btn btn-danger">Supprimer</a>
+        </article>
+        {% endfor %}
+    </section>
+
+{% endblock %}
