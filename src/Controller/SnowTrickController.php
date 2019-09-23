@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Image;
 use App\Entity\Trick;
 use App\Form\TrickType;
 use App\Repository\TrickRepository;
@@ -37,6 +38,10 @@ class SnowTrickController extends AbstractController
     public function createTrick(Request $request, ObjectManager $manager): Response
     {
         $trick = new Trick();
+
+       /*  $image = new Image();
+        $image->setUrl('image');
+        $trick->getImages()->add($image); */
 
         $form = $this->createForm(TrickType::class, $trick);
 
