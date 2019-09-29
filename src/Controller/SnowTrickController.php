@@ -92,4 +92,24 @@ class SnowTrickController extends AbstractController
     }
 
 
+    /**
+     * @Route("/snowtricks/delete/{id}", name="trick_delete", methods= "DELETE")
+     * @param Trick $trick
+     * @param Request $request
+     * @param ObjectManager $manager
+     * @return Response
+     */
+    public function delete(Trick $trick, Request $request, ObjectManager $manager): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $trick->getId(), $request->get('_token'))){
+
+            $manager->remove($trick);
+            $manager->flush();
+            $this->addFlash('success', 'Votre suppression a été effectuée avec succès !');
+        }
+
+        return  $this->redirectToRoute('snowtricks_home');
+
+    }
+
 }
