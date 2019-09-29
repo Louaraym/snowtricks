@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% form_theme formTrick 'bootstrap_4_layout.html.twig' %}
+
+{% block title %}Editer la figure{% endblock %}
+
+{% block body %}
+
+    <h1>Editer la figuree</h1>
+
+    {{ form_start(formTrick, {'attr' : {'novalidate': "novalidate"} }) }}
+
+    {{ form_row(formTrick.title, {'label' : "Nom",'attr' : {'placeholder' : "Nom de la figure"}}) }}
+    {{ form_row(formTrick.tricksGroup, {'label' : "Groupe"}) }}
+    {{ form_row(formTrick.description, { 'attr' : {'placeholder' : "Description de la figure"}}) }}
+
+    <button type="submit" class="btn btn-success">Editer</button>
+
+    {{ form_end(formTrick) }}
+
+{% endblock %}
+
+
+

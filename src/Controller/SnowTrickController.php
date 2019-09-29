@@ -66,4 +66,30 @@ class SnowTrickController extends AbstractController
             'trick' => $trick
         ]);
     }
+
+    /**
+     * @Route("/snowtricks/edit/{id}", name="trick_edit", methods="GET|POST")
+     * @param Trick $trick
+     * @param Request $request
+     * @param ObjectManager $manager
+     * @return Response
+     */
+    public function edit(Trick $trick, Request $request, ObjectManager $manager): Response
+    {
+        $form = $this->createForm(TrickType::class, $trick);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $manager->flush();
+            $this->addFlash('success', 'Votre modification a été effectuée avec succès !');
+            return  $this->redirectToRoute('snowtricks_home');
+        }
+
+        return $this->render('snow_trick/edit.html.twig', [
+            'trick' => $trick,
+            'formTrick' =>$form->createView(),
+        ]);
+    }
+
+
 }
