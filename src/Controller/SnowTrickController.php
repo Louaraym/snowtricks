@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SnowTrickController extends AbstractController
 {
     /**
-     * @Route("/snowtricks/home", name="snowtricks_home")
+     * @Route("/", name="snowtricks_home")
      * @param TrickRepository $repo
      * @return Response
      */
@@ -85,7 +85,7 @@ class SnowTrickController extends AbstractController
             return  $this->redirectToRoute('snowtricks_home');
         }
 
-        return $this->render('snow_trick/edit.html.twig', [
+        return $this->render('snow_trick/editTrick.html.twig', [
             'trick' => $trick,
             'formTrick' =>$form->createView(),
         ]);

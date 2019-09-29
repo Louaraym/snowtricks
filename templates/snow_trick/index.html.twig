@@ -17,7 +17,7 @@
                         <a href="{{ path( 'trick_show', {'id': trick.id} ) }}" class="btn btn-primary">{{trick.title}}</a>
                         <a href="{{ path('trick_edit', {'id': trick.id}) }}" class="btn btn-warning">Editer</a>
                         <form method="post" action="{{ path('trick_delete', {id: trick.id}) }}" style="display: inline-block"
-                              onsubmit="return confirm('Etes-vous sûr de vouloir supprimer cette figure ?')">
+                              onsubmit="return confirm('Etes-vous sûr de bien vouloir supprimer cette figure ?')">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ trick.id) }}">
                             <button class="btn btn-danger">Supprimer</button>
