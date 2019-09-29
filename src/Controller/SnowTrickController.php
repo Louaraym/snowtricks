@@ -46,7 +46,7 @@ class SnowTrickController extends AbstractController
 
             $manager->persist($trick);
             $manager->flush();
-
+            $this->addFlash('success', 'Votre Ajout a été effectué avec succès !');
             return $this->redirectToRoute('snowtricks_home');
         }
 

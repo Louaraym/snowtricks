@@ -2,18 +2,30 @@
 
 {% block body %}
 
+<div class="container mt-4 text-center">
     <h1>Bienvenue dans le monde du Snowboard !</h1>
-    <section class="tricks">
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success text-center">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <div class="row">
         {% for trick in tricks %}
-        <article>
-            <div class="metadata">Ajoutée le {{trick.createdAt | date('d/m/y')}} à {{trick.createdAt | date('H:i')}}
-                dans le groupe : {{ trick.tricksGroup.title }}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <a href="{{ path( 'trick_show', {'id': trick.id} ) }}" class="btn btn-primary">{{trick.title}}</a>
+                        <a href="#" class="btn btn-warning">Editer</a>
+                        <a href="#" class="btn btn-danger">Supprimer</a>
+                    </div>
+                </div>
             </div>
-                <a href="{{ path( 'trick_show', {'id': trick.id} ) }}" class="btn btn-primary">{{trick.title}}</a>
-            <a href="#" class="btn btn-warning">Modifier</a>
-            <a href="#" class="btn btn-danger">Supprimer</a>
-        </article>
         {% endfor %}
-    </section>
+    </div>
+</div>
 
 {% endblock %}
+
+
+
+

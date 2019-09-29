@@ -1,14 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
-    <article>
+    <div class="container mt-4 text-center">
         <h2>{{trick.title}}</h2>
-        {{trick.description | raw}}
+        <p> {{trick.description | raw}} </p>
         <div class="metadata">Ajoutée le {{trick.createdAt | date('d/m/y')}} à {{trick.createdAt | date('H:i')}}
             dans le groupe : {{ trick.tricksGroup.title }}
         </div>
-    </article>
-
+    </div>
 
 {% endblock %}
