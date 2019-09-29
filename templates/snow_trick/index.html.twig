@@ -15,7 +15,7 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <a href="{{ path( 'trick_show', {'id': trick.id} ) }}" class="btn btn-primary">{{trick.title}}</a>
-                        <a href="#" class="btn btn-warning">Editer</a>
+                        <a href="{{ path('trick_edit', {'id': trick.id}) }}" class="btn btn-warning">Editer</a>
                         <a href="#" class="btn btn-danger">Supprimer</a>
                     </div>
                 </div>
