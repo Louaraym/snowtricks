@@ -13,12 +13,6 @@
     {{ form_row(formTrick.tricksGroup, {'label' : "Groupe"}) }}
     {{ form_row(formTrick.description, { 'attr' : {'placeholder' : "Description de la figure"}}) }}
 
-    <ul class="images" data-prototype="{{ form_widget(formTrick.images.vars.prototype)|e('html_attr') }}">
-        {% for image in formTrick.images %}
-            <li>{{ form_row(image.url) }}</li>
-        {% endfor %}
-    </ul>
-
     <button type="submit" class="btn btn-success">Ajouter la figure</button>
 
     {{ form_end(formTrick) }}
