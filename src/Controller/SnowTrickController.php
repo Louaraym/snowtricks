@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SnowTrickController extends AbstractController
 {
     /**
-     * @Route("/snowtricks/home", name="snowtricks_home")
+     * @Route("/", name="snowtricks_home")
      * @param TrickRepository $repo
      * @return Response
      */
@@ -51,7 +51,7 @@ class SnowTrickController extends AbstractController
 
             $manager->persist($trick);
             $manager->flush();
-
+            $this->addFlash('success', 'Votre Ajout a été effectué avec succès !');
             return $this->redirectToRoute('snowtricks_home');
         }
 
@@ -71,4 +71,50 @@ class SnowTrickController extends AbstractController
             'trick' => $trick
         ]);
     }
+
+    /**
+     * @Route("/snowtricks/edit/{id}", name="trick_edit", methods="GET|POST")
+     * @param Trick $trick
+     * @param Request $request
+     * @param ObjectManager $manager
+     * @return Response
+     */
+    public function edit(Trick $trick, Request $request, ObjectManager $manager): Response
+    {
+        $form = $this->createForm(TrickType::class, $trick);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $manager->flush();
+            $this->addFlash('success', 'Votre modification a été effectuée avec succès !');
+            return  $this->redirectToRoute('snowtricks_home');
+        }
+
+        return $this->render('snow_trick/editTrick.html.twig', [
+            'trick' => $trick,
+            'formTrick' =>$form->createView(),
+        ]);
+    }
+
+
+    /**
+     * @Route("/snowtricks/delete/{id}", name="trick_delete", methods= "DELETE")
+     * @param Trick $trick
+     * @param Request $request
+     * @param ObjectManager $manager
+     * @return Response
+     */
+    public function delete(Trick $trick, Request $request, ObjectManager $manager): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $trick->getId(), $request->get('_token'))){
+
+            $manager->remove($trick);
+            $manager->flush();
+            $this->addFlash('success', 'Votre suppression a été effectuée avec succès !');
+        }
+
+        return  $this->redirectToRoute('snowtricks_home');
+
+    }
+
 }
