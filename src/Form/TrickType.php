@@ -21,13 +21,13 @@ class TrickType extends AbstractType
                 'choice_label' => 'title'
             ])
             ->add('description')
-           /* ->add('images', CollectionType::class, [
+            ->add('images', CollectionType::class, [
                 'entry_type'   => ImageType::class,
                 'entry_options' => ['label' => true],
                 'prototype' => true,
                 'allow_add'    => true,
                 'allow_delete' => true
-            ])*/
+            ])
         ;
     }
 

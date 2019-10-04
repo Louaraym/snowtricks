@@ -15,12 +15,12 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <a href="{{ path( 'trick_show', {'id': trick.id} ) }}" class="btn btn-primary">{{trick.title}}</a>
-                        <a href="{{ path('trick_edit', {'id': trick.id}) }}" class="btn btn-warning">Editer</a>
+                        <a href="{{ path('trick_edit', {'id': trick.id}) }}" class="btn btn-warning"><i class="far fa-edit"></i></a>
                         <form method="post" action="{{ path('trick_delete', {id: trick.id}) }}" style="display: inline-block"
                               onsubmit="return confirm('Etes-vous sûr de bien vouloir supprimer cette figure ?')">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ trick.id) }}">
-                            <button class="btn btn-danger">Supprimer</button>
+                            <button class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
                         </form>
                     </div>
                 </div>
