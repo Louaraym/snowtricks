@@ -10,8 +10,8 @@
                 dans le groupe : {{ trick.tricksGroup.title }}
             </div>
                 <a href="{{ path( 'trick_show', {'id': trick.id} ) }}" class="btn btn-primary">{{trick.title}}</a>
-            <a href="#" class="btn btn-warning">Modifier</a>
-            <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+            <a href="#" class="btn btn-warning"><i class="far fa-edit"></i></a>
+            <a href="#" class="btn btn-danger"> <i class="far fa-trash-alt"></i> </a>
         </article>
         {% endfor %}
     </section>
