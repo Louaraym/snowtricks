@@ -15,7 +15,7 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <a href="{{ path( 'trick_show', {'id': trick.id} ) }}" class="btn btn-primary">{{trick.title}}</a>
-                        <a href="{{ path('trick_edit', {'id': trick.id}) }}" class="btn btn-warning"><i class="far fa-edit"></i></a>
+                        <a href="{{ path('trick_edit', {'id': trick.id}) }}" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
                         <form method="post" action="{{ path('trick_delete', {id: trick.id}) }}" style="display: inline-block"
                               onsubmit="return confirm('Etes-vous sûr de bien vouloir supprimer cette figure ?')">
                             <input type="hidden" name="_method" value="DELETE">
