@@ -2,13 +2,13 @@
 
 namespace App\Controller;
 
-use App\Entity\Image;
 use App\Entity\Trick;
 use App\Form\TrickType;
 use App\Repository\TrickRepository;
+use App\Service\UploaderHelper;
 use Doctrine\Common\Persistence\ObjectManager;
-use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,12 +30,12 @@ class SnowTrickController extends AbstractController
 
     /**
      * @Route("/snowtricks/create", name="snowtricks_create")
+     * @param UploaderHelper $uploaderHelper
      * @param Request $request
      * @param ObjectManager $manager
      * @return Response
-     * @throws Exception
      */
-    public function createTrick(Request $request, ObjectManager $manager): Response
+    public function createTrick(UploaderHelper $uploaderHelper ,Request $request, ObjectManager $manager): Response
     {
         $trick = new Trick();
 
@@ -48,6 +48,15 @@ class SnowTrickController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+
+            /** @var UploadedFile $uploadedFile */
+            $uploadedFile = $form['imageFile']->getData();
+
+            if ($uploadedFile){
+
+                $newFilename = $uploaderHelper->uploadTrickImage($uploadedFile);
+                $trick->setImageFilename($newFilename);
+            }
 
             $manager->persist($trick);
             $manager->flush();
@@ -74,17 +83,28 @@ class SnowTrickController extends AbstractController
 
     /**
      * @Route("/snowtricks/edit/{id}", name="trick_edit", methods="GET|POST")
+     * @param UploaderHelper $uploaderHelper
      * @param Trick $trick
      * @param Request $request
      * @param ObjectManager $manager
      * @return Response
      */
-    public function edit(Trick $trick, Request $request, ObjectManager $manager): Response
+    public function edit(UploaderHelper $uploaderHelper ,Trick $trick, Request $request, ObjectManager $manager): Response
     {
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
+
+            /** @var UploadedFile $uploadedFile */
+            $uploadedFile = $form['imageFile']->getData();
+
+            if ($uploadedFile){
+
+                $newFilename = $uploaderHelper->uploadTrickImage($uploadedFile);
+                $trick->setImageFilename($newFilename);
+            }
+
             $manager->flush();
             $this->addFlash('success', 'Votre modification a été effectuée avec succès !');
             return  $this->redirectToRoute('snowtricks_home');

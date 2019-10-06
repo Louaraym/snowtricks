@@ -5,22 +5,22 @@ var $addImageButton = $('<button type="button" class="add_image_link">Ajouter un
 var $newLinkLi = $('<li></li>').append($addImageButton);
 
 jQuery(document).ready(function() {
-        // Get the ul that holds the collection of tags
-        $collectionHolder = $('ul.images');
+    // Get the ul that holds the collection of tags
+    $collectionHolder = $('ul.images');
 
-        // add the "add an image" anchor and li to the images ul
-        $collectionHolder.append($newLinkLi);
+    // add the "add an image" anchor and li to the images ul
+    $collectionHolder.append($newLinkLi);
 
-        // count the current form inputs we have (e.g. 2), use that as the new
-        // index when inserting a new item (e.g. 2)
-        $collectionHolder.data('index', $collectionHolder.find(':input').length);
+    // count the current form inputs we have (e.g. 2), use that as the new
+    // index when inserting a new item (e.g. 2)
+    $collectionHolder.data('index', $collectionHolder.find(':input').length);
 
 
-        $addImageButton.on('click', function(e) {
-            // add a new image form (see next code block)
-            addImageForm($collectionHolder, $newLinkLi);
-        });
- });
+    $addImageButton.on('click', function(e) {
+        // add a new image form (see next code block)
+        addImageForm($collectionHolder, $newLinkLi);
+    });
+});
 
 function addImageForm($collectionHolder, $newLinkLi) {
     // Get the data-prototype explained earlier
@@ -40,7 +40,7 @@ function addImageForm($collectionHolder, $newLinkLi) {
     var $newFormLi = $('<li></li>').append(newForm);
 
     // also add a remove button
-    $newFormLi.append('<a href="#" class="remove-image">Supprimer</a>');;
+    $newFormLi.append('<a href="#" class="remove-image">Supprimer</a>');
 
     $newLinkLi.before($newFormLi);
 

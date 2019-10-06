@@ -13,6 +13,11 @@
         {% for trick in tricks %}
             <div class="col-md-4">
                 <div class="card mb-4">
+                    {% if trick.imageFilename %}
+                    <img class="trick-img" src="{{ trick.imagePath }}" style="width: 100%; height: auto" alt="Image de la figure">
+                    {% else %}
+                    <img class="trick-img" src="{{ '../uploads/empty.jpg' }}" style="width: 100%; height: auto" alt="Image de la figure">
+                    {% endif %}
                     <div class="card-body">
                         <a href="{{ path( 'trick_show', {'id': trick.id} ) }}" class="btn btn-primary">{{trick.title}}</a>
                         <a href="{{ path('trick_edit', {'id': trick.id}) }}" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>

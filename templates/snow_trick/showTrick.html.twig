@@ -2,6 +2,13 @@
 
 {% block body %}
     <div class="container mt-4 text-center">
+
+        {% if trick.imageFilename %}
+            <img class="trick-img" src="{{ trick.imagePath }}" style="width: 100%; height: auto" alt="Image de la figure">
+        {% else %}
+            <img class="trick-img" src="{{ '../uploads/empty.jpg' }}" style="width: 100%; height: auto" alt="Image de la figure">
+        {% endif %}
+
         <h2>{{trick.title}}</h2>
         <p> {{trick.description | raw}} </p>
         <div class="metadata">Ajoutée le {{trick.createdAt | date('d/m/y')}} à {{trick.createdAt | date('H:i')}}
