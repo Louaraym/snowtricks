@@ -3,7 +3,6 @@
 
 namespace App\Service;
 
-use Gedmo\Sluggable\Util\Urlizer;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UploaderHelper
@@ -24,7 +23,6 @@ class UploaderHelper
     {
         $destination = $this->uploadsPath.'/trick_image';
         $originalFilename = pathinfo( $uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-        //$newFilename = Urlizer::urlize($originalFilename).'-'.uniqid().'-'. $uploadedFile->guessExtension();
         $newFilename =$originalFilename.'-'.uniqid().'-'. $uploadedFile->guessExtension();
 
         $uploadedFile->move(
