@@ -34,26 +34,18 @@ class SnowTrickController extends AbstractController
      * @param Request $request
      * @param ObjectManager $manager
      * @return Response
+     * @var UploadedFile $uploadedFile
      */
     public function createTrick(UploaderHelper $uploaderHelper ,Request $request, ObjectManager $manager): Response
     {
         $trick = new Trick();
 
-       /*  $image = new Image();
-        $image->setUrl('image');
-        $trick->getImages()->add($image); */
-
         $form = $this->createForm(TrickType::class, $trick);
-
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-
-            /** @var UploadedFile $uploadedFile */
             $uploadedFile = $form['imageFile']->getData();
-
             if ($uploadedFile){
-
                 $newFilename = $uploaderHelper->uploadTrickImage($uploadedFile);
                 $trick->setImageFilename($newFilename);
             }
@@ -88,6 +80,7 @@ class SnowTrickController extends AbstractController
      * @param Request $request
      * @param ObjectManager $manager
      * @return Response
+     * @var UploadedFile $uploadedFile
      */
     public function edit(UploaderHelper $uploaderHelper ,Trick $trick, Request $request, ObjectManager $manager): Response
     {
@@ -96,11 +89,8 @@ class SnowTrickController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()){
 
-            /** @var UploadedFile $uploadedFile */
             $uploadedFile = $form['imageFile']->getData();
-
             if ($uploadedFile){
-
                 $newFilename = $uploaderHelper->uploadTrickImage($uploadedFile);
                 $trick->setImageFilename($newFilename);
             }
@@ -127,14 +117,12 @@ class SnowTrickController extends AbstractController
     public function delete(Trick $trick, Request $request, ObjectManager $manager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $trick->getId(), $request->get('_token'))){
-
             $manager->remove($trick);
             $manager->flush();
             $this->addFlash('success', 'Votre suppression a été effectuée avec succès !');
         }
 
         return  $this->redirectToRoute('snowtricks_home');
-
     }
 
 }

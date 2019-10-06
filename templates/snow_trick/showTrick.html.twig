@@ -4,7 +4,7 @@
     <div class="container mt-4 text-center">
 
         {% if trick.imageFilename %}
-            <img class="trick-img" src="{{ trick.imagePath }}" style="width: 100%; height: auto" alt="Image de la figure">
+            <img class="trick-img" src="{{ uploaded_asset(trick.imagePath) }}" style="width: 100%; height: auto" alt="Image de la figure">
         {% else %}
             <img class="trick-img" src="{{ '../uploads/empty.jpg' }}" style="width: 100%; height: auto" alt="Image de la figure">
         {% endif %}
