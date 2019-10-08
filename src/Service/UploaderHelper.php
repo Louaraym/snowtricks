@@ -3,7 +3,9 @@
 
 namespace App\Service;
 
+use League\Flysystem\FilesystemInterface;
 use Symfony\Component\Asset\Context\RequestStackContext;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UploaderHelper
@@ -13,25 +15,29 @@ class UploaderHelper
     /**
      * @var string
      */
-    private $uploadsPath;
+    private $filesystem;
 
     private $requestStackContext;
 
-    public function __construct(string $uploadsPath, RequestStackContext $requestStackContext)
+    public function __construct(FilesystemInterface $publicUploadsFilesystem, RequestStackContext $requestStackContext)
     {
-        $this->uploadsPath = $uploadsPath;
+        $this->filesystem = $publicUploadsFilesystem;
         $this->requestStackContext = $requestStackContext;
     }
 
-    public function uploadTrickImage(UploadedFile $uploadedFile): string
+    public function uploadTrickImage(File $file): string
     {
-        $destination = $this->uploadsPath.'/'.self::TRICK_IMAGE;
-        $originalFilename = pathinfo( $uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-        $newFilename =$originalFilename.'-'.uniqid().'-'. $uploadedFile->guessExtension();
+        if ($file instanceof UploadedFile) {
+            $originalFilename = $file->getClientOriginalName();
+        } else {
+            $originalFilename = $file->getFilename();
+        }
 
-        $uploadedFile->move(
-            $destination,
-            $newFilename
+        $newFilename = pathinfo($originalFilename, PATHINFO_FILENAME).'-'.uniqid().'.'.$file->guessExtension();
+
+        $this->filesystem->write(
+            self::TRICK_IMAGE.'/'.$newFilename,
+            file_get_contents($file->getPathname())
         );
 
         return  $newFilename;
