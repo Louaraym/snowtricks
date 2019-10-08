@@ -3,7 +3,9 @@
 
 namespace App\Service;
 
+use League\Flysystem\FileNotFoundException;
 use League\Flysystem\FilesystemInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Asset\Context\RequestStackContext;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -19,13 +21,16 @@ class UploaderHelper
 
     private $requestStackContext;
 
-    public function __construct(FilesystemInterface $publicUploadsFilesystem, RequestStackContext $requestStackContext)
+    private $logger;
+
+    public function __construct(FilesystemInterface $publicUploadsFilesystem, RequestStackContext $requestStackContext,  LoggerInterface $logger)
     {
         $this->filesystem = $publicUploadsFilesystem;
         $this->requestStackContext = $requestStackContext;
+        $this->logger = $logger;
     }
 
-    public function uploadTrickImage(File $file): string
+    public function uploadTrickImage(File $file, ?string $existingFilename): string
     {
         if ($file instanceof UploadedFile) {
             $originalFilename = $file->getClientOriginalName();
@@ -35,10 +40,31 @@ class UploaderHelper
 
         $newFilename = pathinfo($originalFilename, PATHINFO_FILENAME).'-'.uniqid().'.'.$file->guessExtension();
 
-        $this->filesystem->write(
+        $stream = fopen($file->getPathname(), 'r');
+        $result = $this->filesystem->writeStream(
             self::TRICK_IMAGE.'/'.$newFilename,
-            file_get_contents($file->getPathname())
+            $stream
         );
+
+        if ($result === false) {
+            throw new \Exception(sprintf('Impossible d\'enregistrer le fichier télécharger "%s" !', $newFilename));
+        }
+
+        if (is_resource($stream)) {
+            fclose($stream);
+        }
+
+        if ($existingFilename) {
+            try {
+                $result = $this->filesystem->delete(self::TRICK_IMAGE . '/' . $existingFilename);
+
+                if ($result === false) {
+                    throw new \Exception(sprintf('Impossible de supprimer l\'ancien fichier "%s" !', $existingFilename));
+                }
+            } catch (FileNotFoundException $e) {
+                $this->logger->alert(sprintf('L\'ancien fichier "%s" est introuvable pour être supprimé !', $existingFilename));
+            }
+        }
 
         return  $newFilename;
     }

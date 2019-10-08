@@ -7,6 +7,7 @@ use App\Form\TrickType;
 use App\Repository\TrickRepository;
 use App\Service\UploaderHelper;
 use Doctrine\Common\Persistence\ObjectManager;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,6 +35,7 @@ class SnowTrickController extends AbstractController
      * @param Request $request
      * @param ObjectManager $manager
      * @return Response
+     * @throws Exception
      * @var UploadedFile $uploadedFile
      */
     public function createTrick(UploaderHelper $uploaderHelper ,Request $request, ObjectManager $manager): Response
@@ -46,7 +48,7 @@ class SnowTrickController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $uploadedFile = $form['imageFile']->getData();
             if ($uploadedFile){
-                $newFilename = $uploaderHelper->uploadTrickImage($uploadedFile);
+                $newFilename = $uploaderHelper->uploadTrickImage($uploadedFile, $trick->getImageFilename());
                 $trick->setImageFilename($newFilename);
             }
 
@@ -80,6 +82,7 @@ class SnowTrickController extends AbstractController
      * @param Request $request
      * @param ObjectManager $manager
      * @return Response
+     * @throws Exception
      * @var UploadedFile $uploadedFile
      */
     public function edit(UploaderHelper $uploaderHelper ,Trick $trick, Request $request, ObjectManager $manager): Response
@@ -88,10 +91,9 @@ class SnowTrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
-
             $uploadedFile = $form['imageFile']->getData();
             if ($uploadedFile){
-                $newFilename = $uploaderHelper->uploadTrickImage($uploadedFile);
+                $newFilename = $uploaderHelper->uploadTrickImage($uploadedFile, $trick->getImageFilename());
                 $trick->setImageFilename($newFilename);
             }
 
