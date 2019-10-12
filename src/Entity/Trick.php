@@ -54,19 +54,19 @@ class Trick
     private $tricksGroup;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="trick", orphanRemoval=true)
-     */
-    private $images;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $imageFilename;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\TrickImage", mappedBy="trick")
+     */
+    private $trickImages;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
-        $this->images = new ArrayCollection();
+        $this->trickImages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -134,37 +134,6 @@ class Trick
         return $this;
     }
 
-    /**
-     * @return Collection|Image[]
-     */
-    public function getImages(): Collection
-    {
-        return $this->images;
-    }
-
-    public function addImage(Image $image): self
-    {
-        if (!$this->images->contains($image)) {
-            $this->images[] = $image;
-            $image->setTrick($this);
-        }
-
-        return $this;
-    }
-
-    public function removeImage(Image $image): self
-    {
-        if ($this->images->contains($image)) {
-            $this->images->removeElement($image);
-            // set the owning side to null (unless already changed)
-            if ($image->getTrick() === $this) {
-                $image->setTrick(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getImageFilename(): ?string
     {
         return $this->imageFilename;
@@ -181,4 +150,13 @@ class Trick
     {
         return UploaderHelper::TRICK_IMAGE.'/'.$this->getImageFilename();
     }
+
+    /**
+     * @return Collection|TrickImage[]
+     */
+    public function getTrickImages(): Collection
+    {
+        return $this->trickImages;
+    }
+
 }

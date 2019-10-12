@@ -9,7 +9,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
 class TrickType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -17,17 +16,16 @@ class TrickType extends AbstractType
         $builder
             ->add('title')
             ->add('tricksGroup', EntityType::class, [
-                    'class' => TricksGroup::class,
-                    'choice_label' => 'title'
-                ])
+                'class' => TricksGroup::class,
+                'choice_label' => 'title'
+            ])
             ->add('description')
             ->add('imageFile', FileType::class, [
-                    'mapped' => false,
-                    'required' => false,
-                 ])
-            ;
+                'mapped' => false,
+                'required' => false,
+            ])
+        ;
     }
-
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
