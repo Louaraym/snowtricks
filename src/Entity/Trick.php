@@ -59,7 +59,7 @@ class Trick
     private $imageFilename;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\TrickImage", mappedBy="trick")
+     * @ORM\OneToMany(targetEntity="App\Entity\TrickImage", mappedBy="trick", cascade="remove")
      */
     private $trickImages;
 

@@ -20,7 +20,7 @@ class TrickImage
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="trickImages")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Trick",inversedBy="trickImages")
      * @ORM\JoinColumn(nullable=false)
      */
     private $trick;
