@@ -12,15 +12,25 @@
         </div>
         <div class="col-sm-4">
             <h3 class="text-center">Images</h3>
+            <ul class="list-group small js-trickImage-list" data-url="{{ path('admin_trick_list_images', {id: trick.id}) }}"></ul>
+            <hr>
             <form action="{{ path('admin_trick_add_image', {
                 id: trick.id
-            }) }}" method="POST" enctype="multipart/form-data">
-                <input type="file" name="trickImage">
-                <button type="submit" class="btn btn-sm btn-primary">Upload</button>
+            }) }}" method="POST" enctype="multipart/form-data" class="dropzone js-trickImage-dropzone">
             </form>
         </div>
-
     </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js" integrity="sha256-cs4thShDfjkqFGk5s2Lxj35sgSRr4MRcyccmi0WKqCM=" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" integrity="sha256-e47xOkXs1JXFbjjpoRr1/LhVcqSzRmGmPqsrUQeVs+g=" crossorigin="anonymous" />
 {% endblock %}
 
 

@@ -8,6 +8,11 @@
         {% else %}
             <img class="trick-img" src="{{ '../uploads/empty.jpg' }}" style="width: 100%; height: auto" alt="Image de la figure">
         {% endif %}
+        <div>
+            {% for trickImageCollection in trick.trickImages %}
+                <img class="trick-img" src="{{ trickImageCollection.filePath | imagine_filter('small') }}" alt="Image de la figure">
+            {% endfor %}
+        </div>
 
         <h2>{{trick.title}}</h2>
         <p> {{trick.description | raw}} </p>

@@ -26,6 +26,7 @@ Encore
     .addEntry('app', './assets/js/app.js')
     .addEntry('createTricks', './assets/js/createTricks.js')
     .addEntry('uploadFile', './assets/js/uploadFile.js')
+    .addEntry('admin_trick_form', './assets/js/admin_trick_form.js')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 

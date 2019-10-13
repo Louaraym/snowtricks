@@ -9,11 +9,11 @@ use App\Entity\TrickImage;
 use App\Service\UploaderHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Validator\Constraints\File;
-use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -26,9 +26,9 @@ class TrickImageController  extends AbstractController
      * @param UploaderHelper $uploaderHelper
      * @param EntityManagerInterface $entityManager
      * @param ValidatorInterface $validator
-     * @return RedirectResponse
+     * @return JsonResponse
      */
-    public function uploadTrickImageCollection(Trick $trick, Request $request, UploaderHelper $uploaderHelper, EntityManagerInterface $entityManager, ValidatorInterface $validator)
+    public function uploadTrickImageCollection(Trick $trick, Request $request, UploaderHelper $uploaderHelper, EntityManagerInterface $entityManager, ValidatorInterface $validator): JsonResponse
     {
         /** @var UploadedFile $uploadedFile */
         $uploadedFile = $request->files->get('trickImage');
@@ -44,12 +44,7 @@ class TrickImageController  extends AbstractController
         );
 
         if ($violations->count() > 0) {
-            /** @var ConstraintViolation $violation */
-            $violation = $violations[0];
-            $this->addFlash('error', $violation->getMessage());
-            return $this->redirectToRoute('trick_edit', [
-                'id' => $trick->getId(),
-            ]);
+            return $this->json($violations, 400);
         }
 
         $filename = $uploaderHelper->uploadTrickImageCollection($uploadedFile);
@@ -63,9 +58,48 @@ class TrickImageController  extends AbstractController
         $entityManager->persist($trickImage);
         $entityManager->flush();
 
-        return $this->redirectToRoute('trick_edit', [
-            'id' => $trick->getId(),
-        ]);
+        return $this->json(
+            $trickImage,
+            201,
+            [],
+            [
+                'groups' => ['main']
+            ]
+        );
+    }
+
+    /**
+     * @Route("/admin/trick/{id}/images", methods="GET", name="admin_trick_list_images")
+     * @param Trick $trick
+     * @return JsonResponse
+     */
+    public function getTrickImage(Trick $trick): JsonResponse
+    {
+        return $this->json(
+            $trick->getTrickImages(),
+            200,
+            [],
+            [
+                'groups' => ['main']
+            ]
+        );
+    }
+
+    /**
+     * @Route("/admin/trick/image/{id}", name="admin_trick_delete_image", methods={"DELETE"})
+     * @param TrickImage $trickImage
+     * @param UploaderHelper $uploaderHelper
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     * @throws \Exception
+     */
+    public function deleteTrickImage(TrickImage $trickImage, UploaderHelper $uploaderHelper, EntityManagerInterface $entityManager): Response
+    {
+        $entityManager->remove($trickImage);
+        $entityManager->flush();
+
+        $uploaderHelper->deleteFile($trickImage->getFilePath());
+        return new Response(null, 204);
     }
 
 }

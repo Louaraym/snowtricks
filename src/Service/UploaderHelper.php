@@ -62,6 +62,21 @@ class UploaderHelper
                 ->getBasePath().$this->publicAssetBaseUrl.'/'.$path;
     }
 
+    /**
+     * @param string $path
+     * @return resource
+     * @throws FileNotFoundException
+     */
+    public function readStream(string $path)
+    {
+        $filesystem = $this->filesystem;
+        $resource = $filesystem->readStream($path);
+        if ($resource === false) {
+            throw new \Exception(sprintf('Error opening stream for "%s"', $path));
+        }
+        return $resource;
+    }
+
     private function uploadFile(File $file, string $directory): string
     {
         if ($file instanceof UploadedFile) {
@@ -83,6 +98,15 @@ class UploaderHelper
             fclose($stream);
         }
         return $newFilename;
+    }
+
+    public function deleteFile(string $path): void
+    {
+        $filesystem = $this->filesystem;
+        $result = $filesystem->delete($path);
+        if ($result === false) {
+            throw new \Exception(sprintf('Error deleting "%s"', $path));
+        }
     }
 
 }

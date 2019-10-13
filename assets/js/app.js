@@ -16,3 +16,4 @@ const $ = require('jquery');
 // import the function from createTricks.js (the .js extension is optional)
 require('./createTricks.js');
 require('./uploadFile.js');
+require('./admin_trick_form.js');
