@@ -1,10 +1,16 @@
+import Dropzone from 'dropzone'
+import 'dropzone/dist/min/dropzone.min.css'
+
 Dropzone.autoDiscover = false;
 
 $(document).ready(function() {
     var trickImageList = new TrickImageList($('.js-trickImage-list'));
+
     initializeDropzone(trickImageList);
+
     var $locationSelect = $('.js-trick-form-location');
     var $specificLocationTarget = $('.js-specific-location-target');
+
     $locationSelect.on('change', function(e) {
         $.ajax({
             url: $locationSelect.data('specific-location-url'),
@@ -76,16 +82,16 @@ class TrickImageList
     }
 }
 
-
-
 /**
  * @param {TrickImageList} trickImageList
  */
 function initializeDropzone(trickImageList) {
     var formElement = document.querySelector('.js-trickImage-dropzone');
+
     if (!formElement) {
         return;
     }
+
     var dropzone = new Dropzone(formElement, {
         paramName: 'trickImage',
         init: function() {

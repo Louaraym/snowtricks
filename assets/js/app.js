@@ -7,16 +7,11 @@
 
 // any CSS you require will output into a single css file (app.css in this case)
 require('../css/app.css');
-//require('../css/createTricks.css');
 import '@fortawesome/fontawesome-free/css/all.min.css';
-
-//import 'dropzone/dist/dropzone.css';
-//import 'dropzone/dist/dropzone.js';
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 const $ = require('jquery');
 
 // import the function from createTricks.js (the .js extension is optional)
-require('./createTricks.js');
 require('./uploadFile.js');
 require('./admin_trick_form.js');
