@@ -14,13 +14,13 @@
             <h3 class="text-center">Images</h3>
             <ul class="list-group small js-trickImage-list" data-url="{{ path('admin_trick_list_images', {id: trick.id}) }}"></ul>
             <hr>
-            <form action="{{ path('admin_trick_add_image', {
-                id: trick.id
-            }) }}" method="POST" enctype="multipart/form-data" class="dropzone js-trickImage-dropzone">
+            <form action="{{ path('admin_trick_add_image', {id: trick.id}) }}" method="POST"
+                  enctype="multipart/form-data" class="dropzone js-trickImage-dropzone">
             </form>
         </div>
     </div>
 {% endblock %}
+
 
 
 

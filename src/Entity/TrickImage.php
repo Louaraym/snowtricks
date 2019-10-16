@@ -43,6 +43,11 @@ class TrickImage
      */
     private $mimeType;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $position =0;
+
     public function __construct(Trick $trick)
     {
         $this->trick = $trick;
@@ -97,5 +102,17 @@ class TrickImage
     public function getFilePath(): string
     {
         return UploaderHelper::TRICK_IMAGE_COLLECTION.'/'.$this->getFilename();
+    }
+
+    public function getPosition(): ?int
+    {
+        return $this->position;
+    }
+
+    public function setPosition(int $position): self
+    {
+        $this->position = $position;
+
+        return $this;
     }
 }

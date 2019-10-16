@@ -36,12 +36,14 @@ $(document).ready(function() {
 class TrickImageList
 {
     constructor($element) {
+
         this.$element = $element;
         this.trickImages = [];
         this.render();
         this.$element.on('click', '.js-trickImage-delete', (event) => {
             this.handleTrickImageDelete(event);
         });
+
         $.ajax({
             url: this.$element.data('url')
         }).then(data => {
@@ -49,11 +51,14 @@ class TrickImageList
             this.render();
         })
     }
+
     addTrickImage(trickImage) {
         this.trickImages.push(trickImage);
         this.render();
     }
+
     handleTrickImageDelete(event) {
+
         const $li = $(event.currentTarget).closest('.list-group-item');
         const id = $li.data('id');
         $li.addClass('disabled');
@@ -67,16 +72,17 @@ class TrickImageList
             this.render();
         });
     }
+
     render() {
         const itemsHtml = this.trickImages.map(trickImage => {
-            return `
-    <li class="list-group-item d-flex justify-content-between align-items-center" data-id="${trickImage.id}">
-        ${trickImage.originalFilename}
-        <span>
-            <button class="js-trickImage-delete btn btn-link btn-sm"><span class="fa fa-trash"></span></button>
-        </span>
-    </li>
-`
+        return `
+                <li class="list-group-item d-flex justify-content-between align-items-center" data-id="${trickImage.id}">
+                    ${trickImage.originalFilename}
+                    <span>
+                        <button class="js-trickImage-delete btn btn-link btn-sm"><span class="fa fa-trash"></span></button>
+                    </span>
+                </li>
+                `
         });
         this.$element.html(itemsHtml.join(''));
     }
@@ -86,6 +92,7 @@ class TrickImageList
  * @param {TrickImageList} trickImageList
  */
 function initializeDropzone(trickImageList) {
+
     var formElement = document.querySelector('.js-trickImage-dropzone');
 
     if (!formElement) {
@@ -93,7 +100,9 @@ function initializeDropzone(trickImageList) {
     }
 
     var dropzone = new Dropzone(formElement, {
+
         paramName: 'trickImage',
+
         init: function() {
             this.on('success', function(file, data) {
                 trickImageList.addTrickImage(data);

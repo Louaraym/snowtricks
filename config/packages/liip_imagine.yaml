@@ -26,14 +26,14 @@ liip_imagine:
             quality: 75
             filters:
                 thumbnail:
-                    size:          [200, 200]
+                    size:          [380, 270]
                     mode:          outbound
-                    allow_upscale: true
+                    allow_upscale: false
 
         medium:
             quality: 75
             filters:
                 thumbnail:
-                    size:          [500, 500]
+                    size:          [800, 800]
                     mode:          outbound
-                    allow_upscale: true
+                    allow_upscale: false
