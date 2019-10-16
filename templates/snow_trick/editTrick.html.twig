@@ -1,23 +1,27 @@
 {% extends 'base.html.twig' %}
-{% form_theme formTrick 'bootstrap_4_layout.html.twig' %}
 
-{% block title %}Editer la figure{% endblock %}
+{% block title %}Editer une figure{% endblock %}
 
 {% block body %}
-
-    <h1>Editer la figuree</h1>
-
-    {{ form_start(formTrick, {'attr' : {'novalidate': "novalidate"} }) }}
-
-    {{ form_row(formTrick.title, {'label' : "Nom",'attr' : {'placeholder' : "Nom de la figure"}}) }}
-    {{ form_row(formTrick.tricksGroup, {'label' : "Groupe"}) }}
-    {{ form_row(formTrick.description, { 'attr' : {'placeholder' : "Description de la figure"}}) }}
-
-    <button type="submit" class="btn btn-success">Editer</button>
-
-    {{ form_end(formTrick) }}
-
+    <h1 class="text-center">Editer la figure</h1>
+    <hr>
+    <div class="row">
+        <div class="col-sm-8">
+            <h3 class="text-center">Details</h3>
+            {{ include('snow_trick/_form.html.twig', { button: 'Editer'}) }}
+        </div>
+        <div class="col-sm-4">
+            <h3 class="text-center">Images</h3>
+            <ul class="list-group small js-trickImage-list" data-url="{{ path('admin_trick_list_images', {id: trick.id}) }}"></ul>
+            <hr>
+            <form action="{{ path('admin_trick_add_image', {id: trick.id}) }}" method="POST"
+                  enctype="multipart/form-data" class="dropzone js-trickImage-dropzone">
+            </form>
+        </div>
+    </div>
 {% endblock %}
+
+
 
 
 

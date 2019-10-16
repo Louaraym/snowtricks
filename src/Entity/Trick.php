@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Service\UploaderHelper;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -53,14 +54,19 @@ class Trick
     private $tricksGroup;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="trick", orphanRemoval=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $images;
+    private $imageFilename;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\TrickImage", mappedBy="trick", cascade="remove")
+     */
+    private $trickImages;
 
     public function __construct()
     {
         $this->createdAt = new \DateTime();
-        $this->images = new ArrayCollection();
+        $this->trickImages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -128,34 +134,29 @@ class Trick
         return $this;
     }
 
+    public function getImageFilename(): ?string
+    {
+        return $this->imageFilename;
+    }
+
+    public function setImageFilename(?string $imageFilename): self
+    {
+        $this->imageFilename = $imageFilename;
+
+        return $this;
+    }
+
+    public function getImagePath(): string
+    {
+        return UploaderHelper::TRICK_IMAGE.'/'.$this->getImageFilename();
+    }
+
     /**
-     * @return Collection|Image[]
+     * @return Collection|TrickImage[]
      */
-    public function getImages(): Collection
+    public function getTrickImages(): Collection
     {
-        return $this->images;
+        return $this->trickImages;
     }
 
-    public function addImage(Image $image): self
-    {
-        if (!$this->images->contains($image)) {
-            $this->images[] = $image;
-            $image->setTrick($this);
-        }
-
-        return $this;
-    }
-
-    public function removeImage(Image $image): self
-    {
-        if ($this->images->contains($image)) {
-            $this->images->removeElement($image);
-            // set the owning side to null (unless already changed)
-            if ($image->getTrick() === $this) {
-                $image->setTrick(null);
-            }
-        }
-
-        return $this;
-    }
 }
