@@ -3,8 +3,12 @@
 {% block title %}Créer une figure{% endblock %}
 
 {% block body %}
-    <h1>Ajouter une nouvelle figure</h1>
-    {{ include('snow_trick/_form.html.twig', { button: 'Créer'}) }}
+    <div class="container text-center">
+        <h1 class="h3 mb-3 mt-3 font-weight-normal">Ajouter une figure</h1>
+        <hr>
+        {{ include('snow_trick/_form.html.twig', { button: 'Créer'}) }}
+        <hr>
+    </div>
 {% endblock %}
 
 

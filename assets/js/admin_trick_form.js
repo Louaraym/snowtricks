@@ -80,7 +80,7 @@ class TrickImageList
                     ${trickImage.originalFilename}
                     <span>
                         <button class="js-trickImage-delete btn btn-link btn-sm"><span class="fa fa-trash"></span></button>
-                    </span>
+                    </span>             
                 </li>
                 `
         });
