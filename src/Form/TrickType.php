@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Member;
 use App\Entity\TricksGroup;
 use App\Entity\Trick;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -21,6 +22,12 @@ class TrickType extends AbstractType
                 'choice_label' => 'title'
             ])
             ->add('description', TextareaType::class)
+            ->add('author', EntityType::class, [
+                'class' => Member::class,
+                'choice_label' => 'membername',
+                'required' => true,
+                'disabled' => false,
+            ])
             ->add('imageFile', FileType::class, [
                 'mapped' => false,
                 'required' => false,

@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Trick;
+use App\Form\CommentType;
 use App\Form\TrickType;
 use App\Repository\TrickRepository;
 use App\Service\UploaderHelper;
@@ -36,9 +38,8 @@ class SnowTrickController extends AbstractController
      * @param ObjectManager $manager
      * @return Response
      * @throws Exception
-     * @var UploadedFile $uploadedFile
      */
-    public function createTrick(UploaderHelper $uploaderHelper ,Request $request, ObjectManager $manager): Response
+    public function createTrick(UploaderHelper $uploaderHelper, Request $request, ObjectManager $manager): Response
     {
         $trick = new Trick();
 
@@ -66,12 +67,31 @@ class SnowTrickController extends AbstractController
     /**
      * @Route("/snowtricks/{id}", name="trick_show")
      * @param Trick $trick
+     * @param Request $request
+     * @param ObjectManager $manager
      * @return Response
+     * @throws Exception
      */
-    public function showTrick(Trick $trick): Response
+    public function showTrick(Trick $trick, Request $request, ObjectManager $manager): Response
     {
+        $comment = new Comment();
+
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $comment->setTrick($trick);
+
+            $manager->persist($comment);
+            $manager->flush();
+
+            return $this->redirectToRoute('trick_show', ['id' => $trick->getId()]);
+
+        }
+
         return $this->render('snow_trick/showTrick.html.twig', [
-            'trick' => $trick
+            'trick' => $trick,
+            'formComment' => $form->createView(),
         ]);
     }
 
