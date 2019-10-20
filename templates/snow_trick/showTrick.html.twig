@@ -44,31 +44,36 @@
         <hr>
     </div>
 
-    <div class="container mt-4 text-center">
-        <h1 class="h3 mb-3 mt-3 font-weight-normal">{{ trick.comments | length }} commentaires</h1>
-        {% for comment in trick.comments %}
-            <div class="comment">
+    <div class="row">
+        <div class="col-sm-12">
+            <h3> <i class="pr-3 fa fa-comment"> </i>{{ trick.comments|length }} Commentaires</h3>
+            <hr>
+            {% for comment in trick.comments %}
                 <div class="row">
-                    <div class="col-3">
-                        {{ comment.authorName.membername }} (<small>{{ comment.createdAt | date ('d/m/Y à H:i') }}</small>)
-                    </div>
-                    <div class="col">
-                        {{ comment.content | raw }}
+                    <div class="col-sm-12">
+                        <div class="comment-container d-inline-block pl-3 align-top">
+                            <small>  Publié le {{ comment.createdAt | date ('d/m/Y à H:i') }} par : {{ comment.authorName.membername }}</small>
+                            <br>
+                            <p class="comment"> {{ comment.content | raw }}</p>
+                        </div>
                     </div>
                 </div>
+{#                </div>#}
+            {% endfor %}
+            <hr>
+            <div class="comments">
+                {% if app.user %}
+                    {{ form_start(formComment) }}
+                    {{ form_row(formComment.authorName, {'label' : "Auteur" } ) }}
+                    {{ form_row(formComment.content, {'label' : "Laisser un commentaire", 'attr' : { 'placeholder' : "Votre commentaire", 'rows': 5} }) }}
+                    <button type="submit" class="btn btn-success">Commenter</button>
+                    {{ form_end(formComment) }}
+                {% else %}
+                    <h2 class="h3 mb-3 mt-3 font-weight-normal">Connectez vous pour pouvoir commenter cette figure !</h2>
+                    <a href="{{ path('app_login') }}" class="btn btn-primary">Connexion</a>
+                {% endif %}
             </div>
-        {% endfor %}
-
-        {% if app.user %}
-            {{ form_start(formComment) }}
-            {{ form_row(formComment.authorName, {'label' : "Auteur" } ) }}
-            {{ form_row(formComment.content, {'label' : "Commentaire", 'attr' : { 'placeholder' : "Votre commentaire"} }) }}
-            <button type="submit" class="btn btn-success">Commenter</button>
-            {{ form_end(formComment) }}
-        {% else %}
-            <h2 class="h3 mb-3 mt-3 font-weight-normal">Vous devez être connecté pour commenter cette figure !</h2>
-            <a href="{{ path('app_login') }}" class="btn btn-primary">Connexion</a>
-        {% endif %}
+        </div>
     </div>
 <hr>
 {% endblock %}
