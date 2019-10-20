@@ -5,7 +5,6 @@ namespace App\Service;
 
 
 use Twig\Environment;
-use Symfony\Component\Templating\EngineInterface;
 
 
 /**
@@ -22,7 +21,7 @@ class Mailer
         $this->mailer = $mailer;
     }
 
-    public function sendMessage($from, $to, $subject, $body, $attachement = null)
+    public function sendMessage($from, $to, $subject, $body, $attachement = null): void
     {
         $mail = (new \Swift_Message($subject))
             ->setFrom($from)
@@ -35,7 +34,7 @@ class Mailer
         $this->mailer->send($mail);
     }
 
-    public function createBodyMail($view, array $parameters)
+    public function createBodyMail($view, array $parameters): string
     {
         return $this->engine->render($view, $parameters);
     }

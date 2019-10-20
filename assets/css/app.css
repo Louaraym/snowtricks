@@ -2,7 +2,7 @@ body {
     background-color: lightgray;
 }
 
-.registration, .form-login, .comments {
+.registration, .form-login, .comments, .grid-container {
    margin: 0 auto;
     width: 40%;
     text-align: center;

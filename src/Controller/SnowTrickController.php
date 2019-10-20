@@ -105,7 +105,7 @@ class SnowTrickController extends AbstractController
      * @throws Exception
      * @var UploadedFile $uploadedFile
      */
-    public function edit(UploaderHelper $uploaderHelper ,Trick $trick, Request $request, ObjectManager $manager): Response
+    public function edit(UploaderHelper $uploaderHelper,Trick $trick, Request $request, ObjectManager $manager): Response
     {
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
@@ -119,7 +119,7 @@ class SnowTrickController extends AbstractController
 
             $manager->flush();
             $this->addFlash('success', 'Votre modification a été effectuée avec succès !');
-            return  $this->redirectToRoute('snowtricks_home');
+            return  $this->redirectToRoute('trick_show', ['id' => $trick->getId()]);
         }
 
         return $this->render('snow_trick/editTrick.html.twig', [
