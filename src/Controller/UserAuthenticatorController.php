@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Member;
+use App\Entity\User;
 use App\Form\RegistrationType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-class MemberAuthenticatorController extends AbstractController
+class UserAuthenticatorController extends AbstractController
 {
     /**
      * @Route("/inscription", name="app_registration")
@@ -23,19 +23,19 @@ class MemberAuthenticatorController extends AbstractController
      */
     public function registration(UserPasswordEncoderInterface $encoder, Request $request, ObjectManager $manager): Response
     {
-        $member = new Member();
+        $user = new User();
 
-        $form = $this->createForm(RegistrationType::class, $member);
+        $form = $this->createForm(RegistrationType::class, $user);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
 
-            $hash = $encoder->encodePassword($member, $member->getPassword());
+            $hash = $encoder->encodePassword($user, $user->getPassword());
 
-            $member->setPassword($hash);
+            $user->setPassword($hash);
 
-            $manager->persist($member);
+            $manager->persist($user);
             $manager->flush();
 
             return  $this->redirectToRoute('app_login');

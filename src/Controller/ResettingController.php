@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Repository\MemberRepository;
+use App\Repository\UserRepository;
 use App\Service\Mailer;
-use App\Entity\Member;
+use App\Entity\User;
 use Doctrine\Common\Persistence\ObjectManager;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,21 +21,21 @@ use App\Form\ResettingType;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
- * @Route("/resettint/password")
+ * @Route("/resetting/password")
  */
 class ResettingController extends AbstractController
 {
     /**
      * @Route("/request", name="request_resetting")
      * @param ObjectManager $manager
-     * @param MemberRepository $memberRepository
+     * @param UserRepository $userRepository
      * @param Request $request
      * @param Mailer $mailer
      * @param TokenGeneratorInterface $tokenGenerator
      * @return RedirectResponse|Response
      * @throws Exception
      */
-    public function request(ObjectManager $manager, MemberRepository $memberRepository, Request $request, Mailer $mailer, TokenGeneratorInterface $tokenGenerator)
+    public function request(ObjectManager $manager, UserRepository $userRepository, Request $request, Mailer $mailer, TokenGeneratorInterface $tokenGenerator)
     {
         // création d'un formulaire "à la volée", afin que l'internaute puisse renseigner son mail
         $form = $this->createFormBuilder()
@@ -51,25 +51,25 @@ class ResettingController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-        $member = $memberRepository->findOneByEmail($form->getData()['email']);
+        $user = $userRepository->findOneByEmail($form->getData()['email']);
 
-            if (!$member) {
+            if (!$user) {
                 $this->addFlash('warning', "Aucun Membre du site ne correspond à cet email.");
                 return $this->redirectToRoute('request_resetting');
             }
 
             // création du token
-            $member->setToken($tokenGenerator->generateToken());
+            $user->setToken($tokenGenerator->generateToken());
 
             // enregistrement de la date de création du token
-            $member->setPasswordRequestedAt(new \Datetime());
+            $user->setPasswordRequestedAt(new \Datetime());
             $manager->flush();
 
             $bodyMail = $mailer->createBodyMail('resetting/mail.html.twig', [
-                'member' => $member
+                'user' => $user
             ]);
 
-            $mailer->sendMessage('from@email.com', $member->getEmail(), 'Réinitialisation de votre mot de passe', $bodyMail);
+            $mailer->sendMessage('from@email.com', $user->getEmail(), 'Réinitialisation de votre mot de passe', $bodyMail);
             $this->addFlash('success', "Un mail vient de vous être envoyé pour réinitialiser votre mot de passe. Le lien qu'il contient sera valide 24h.");
 
             return $this->redirectToRoute('app_login');
@@ -99,36 +99,36 @@ class ResettingController extends AbstractController
     /**
      * @Route("/{id}/{token}", name="resetting")
      * @param ObjectManager $manager
-     * @param Member $member
+     * @param User $user
      * @param $token
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @return RedirectResponse|Response
      */
-    public function resetting(ObjectManager $manager, Member $member, $token, Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function resetting(ObjectManager $manager, User $user, $token, Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         // interdit l'accès à la page si:
         // le token associé au membre est null
         // le token enregistré en base et le token présent dans l'url ne sont pas égaux
         // le token date de plus de 10 minutes
-        if ($member->getToken() === null || $token !== $member->getToken() || !$this->isRequestInTime($member->getPasswordRequestedAt()))
+        if ($user->getToken() === null || $token !== $user->getToken() || !$this->isRequestInTime($user->getPasswordRequestedAt()))
         {
             throw new AccessDeniedHttpException();
         }
 
-        $form = $this->createForm(ResettingType::class, $member);
+        $form = $this->createForm(ResettingType::class, $user);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())
         {
-            $password = $passwordEncoder->encodePassword($member, $member->getPlainPassword());
-            $member->setPassword($password);
+            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+            $user->setPassword($password);
 
             // réinitialisation du token à null pour qu'il ne soit plus réutilisable
-            $member->setToken(null);
-            $member->setPasswordRequestedAt(null);
+            $user->setToken(null);
+            $user->setPasswordRequestedAt(null);
 
-            $manager->persist($member);
+            $manager->persist($user);
             $manager->flush();
 
             $this->addFlash('success', 'Votre mot de passe a été réinitialisé avec succès !');

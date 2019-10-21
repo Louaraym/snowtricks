@@ -1,12 +1,12 @@
 security:
     encoders:
-        App\Entity\Member:
+        App\Entity\User:
             algorithm: auto
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         app_member_provider:
             entity:
-                class: App\Entity\Member
+                class: App\Entity\User
                 property: email
     firewalls:
         dev:
@@ -16,7 +16,7 @@ security:
             anonymous: true
             guard:
                 authenticators:
-                    - App\Security\MemberAuthenticator
+                    - App\Security\UserAuthenticator
             logout:
                 path: app_logout
                 target: snowtricks_home

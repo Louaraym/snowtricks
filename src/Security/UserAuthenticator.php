@@ -2,7 +2,7 @@
 
 namespace App\Security;
 
-use App\Repository\MemberRepository;
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -18,7 +18,7 @@ use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticato
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class MemberAuthenticator extends AbstractFormLoginAuthenticator
+class UserAuthenticator extends AbstractFormLoginAuthenticator
 {
     use TargetPathTrait;
 
@@ -27,12 +27,12 @@ class MemberAuthenticator extends AbstractFormLoginAuthenticator
     private $passwordEncoder;
     private $memberRepository;
 
-    public function __construct(MemberRepository $memberRepository, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(UserRepository $userRepository, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
     {
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
-        $this->memberRepository = $memberRepository;
+        $this->memberRepository = $userRepository;
     }
 
     public function supports(Request $request): bool

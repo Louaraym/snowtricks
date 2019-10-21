@@ -28,7 +28,7 @@ class Comment
     private $trick;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Member", inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
     private $authorName;
@@ -72,12 +72,12 @@ class Comment
         return $this;
     }
 
-    public function getAuthorName(): ?Member
+    public function getAuthorName(): ?User
     {
         return $this->authorName;
     }
 
-    public function setAuthorName(?Member $authorName): self
+    public function setAuthorName(?User $authorName): self
     {
         $this->authorName = $authorName;
 

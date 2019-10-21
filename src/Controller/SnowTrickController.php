@@ -10,6 +10,7 @@ use App\Repository\TrickRepository;
 use App\Service\UploaderHelper;
 use Doctrine\Common\Persistence\ObjectManager;
 use Exception;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,6 +34,7 @@ class SnowTrickController extends AbstractController
 
     /**
      * @Route("/snowtricks/create", name="snowtricks_create")
+     * @IsGranted("TRICK_CREATE")
      * @param UploaderHelper $uploaderHelper
      * @param Request $request
      * @param ObjectManager $manager
@@ -41,13 +43,17 @@ class SnowTrickController extends AbstractController
      */
     public function createTrick(UploaderHelper $uploaderHelper, Request $request, ObjectManager $manager): Response
     {
+
         $trick = new Trick();
 
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+
+            $trick->setAuthor($this->getUser());
             $uploadedFile = $form['imageFile']->getData();
+
             if ($uploadedFile){
                 $newFilename = $uploaderHelper->uploadTrickImage($uploadedFile, $trick->getImageFilename());
                 $trick->setImageFilename($newFilename);
@@ -59,18 +65,18 @@ class SnowTrickController extends AbstractController
             return $this->redirectToRoute('snowtricks_home');
         }
 
-        return $this->render('snow_trick/createTrick.html.twig', [
+        return $this->render('snow_trick_admin/createTrick.html.twig', [
             'formTrick' => $form->createView(),
         ]);
     }
 
     /**
      * @Route("/snowtricks/{id}", name="trick_show")
+     *
      * @param Trick $trick
      * @param Request $request
      * @param ObjectManager $manager
      * @return Response
-     * @throws Exception
      */
     public function showTrick(Trick $trick, Request $request, ObjectManager $manager): Response
     {
@@ -80,7 +86,9 @@ class SnowTrickController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            $comment->setTrick($trick);
+
+            $comment->setTrick($trick)
+                    ->setAuthorName($this->getUser());
 
             $manager->persist($comment);
             $manager->flush();
@@ -97,6 +105,7 @@ class SnowTrickController extends AbstractController
 
     /**
      * @Route("/snowtricks/edit/{id}", name="trick_edit", methods="GET|POST")
+     * @IsGranted("TRICK_EDIT", subject="trick")
      * @param UploaderHelper $uploaderHelper
      * @param Trick $trick
      * @param Request $request
@@ -122,7 +131,7 @@ class SnowTrickController extends AbstractController
             return  $this->redirectToRoute('trick_show', ['id' => $trick->getId()]);
         }
 
-        return $this->render('snow_trick/editTrick.html.twig', [
+        return $this->render('snow_trick_admin/editTrick.html.twig', [
             'trick' => $trick,
             'formTrick' =>$form->createView(),
         ]);

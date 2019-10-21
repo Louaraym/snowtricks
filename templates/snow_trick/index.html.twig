@@ -4,6 +4,7 @@
     <hr>
 <div class="container mt-4 text-center">
     <h1>Bienvenue dans le monde du Snowboard !</h1>
+
     {% for message in app.flashes('success') %}
         <div class="alert alert-success text-center">
             {{ message }}

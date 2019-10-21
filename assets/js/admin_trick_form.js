@@ -38,6 +38,7 @@ class TrickImageList
     constructor($element) {
 
         this.$element = $element;
+
         this.trickImages = [];
         this.render();
         this.$element.on('click', '.js-trickImage-delete', (event) => {

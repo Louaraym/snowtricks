@@ -9,7 +9,7 @@
     Bonjour, <br>
     Cliquez sur ce lien pour réinitialiser votre mot de passe.
     {# pour que le lien fonctionne, il est indispensable qu'il soit absolu. #}
-    <a href="{{absolute_url(path('resetting', {'id': member.id, 'token': member.token}))}}">Réinitialiser votre mot de passe</a>
+    <a href="{{absolute_url(path('resetting', {'id': user.id, 'token': user.token}))}}">Réinitialiser votre mot de passe</a>
 </p>
 </body>
 </html>

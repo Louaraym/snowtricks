@@ -64,7 +64,7 @@ class Trick
     private $trickImages;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Member", inversedBy="tricks")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="tricks")
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;
@@ -171,12 +171,12 @@ class Trick
         return $this->trickImages;
     }
 
-    public function getAuthor(): ?Member
+    public function getAuthor(): ?User
     {
         return $this->author;
     }
 
-    public function setAuthor(?Member $author): self
+    public function setAuthor(?User $author): self
     {
         $this->author = $author;
 

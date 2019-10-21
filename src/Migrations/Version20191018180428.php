@@ -24,7 +24,7 @@ final class Version20191018180428 extends AbstractMigration
 
         $this->addSql('CREATE TABLE comment (id INT AUTO_INCREMENT NOT NULL, trick_id INT NOT NULL, author_name_id INT NOT NULL, content LONGTEXT NOT NULL, INDEX IDX_9474526CB281BE2E (trick_id), INDEX IDX_9474526C342D0395 (author_name_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('ALTER TABLE comment ADD CONSTRAINT FK_9474526CB281BE2E FOREIGN KEY (trick_id) REFERENCES trick (id)');
-        $this->addSql('ALTER TABLE comment ADD CONSTRAINT FK_9474526C342D0395 FOREIGN KEY (author_name_id) REFERENCES member (id)');
+        $this->addSql('ALTER TABLE comment ADD CONSTRAINT FK_9474526C342D0395 FOREIGN KEY (author_name_id) REFERENCES "user" (id)');
     }
 
     public function down(Schema $schema) : void

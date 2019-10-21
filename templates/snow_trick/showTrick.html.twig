@@ -42,7 +42,7 @@
         <p> {{trick.description | raw}} </p>
         <hr>
         <div class="metadata mb-4">Ajoutée le {{trick.createdAt | date('d/m/y')}} à {{trick.createdAt | date('H:i')}}
-            dans le groupe : {{ trick.tricksGroup.title }} par {{trick.author.membername }}
+            dans le groupe : {{ trick.tricksGroup.title }} par {{trick.author.username }}
         </div>
         <hr>
     </div>
@@ -55,7 +55,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="comment-container d-inline-block pl-3 align-top">
-                            <small>  Publié le {{ comment.createdAt | date ('d/m/Y à H:i') }} par : {{ comment.authorName.membername }}</small>
+                            <small>  Publié le {{ comment.createdAt | date ('d/m/Y à H:i') }} par : {{ comment.authorName.username }}</small>
                             <br>
                             <p class="comment"> {{ comment.content | raw }}</p>
                         </div>
@@ -67,7 +67,6 @@
             <div class="comments">
                 {% if app.user %}
                     {{ form_start(formComment) }}
-                    {{ form_row(formComment.authorName, {'label' : "Auteur" } ) }}
                     {{ form_row(formComment.content, {'label' : "Laisser un commentaire", 'attr' : { 'placeholder' : "Votre commentaire", 'rows': 5} }) }}
                     <button type="submit" class="btn btn-success">Commenter</button>
                     {{ form_end(formComment) }}

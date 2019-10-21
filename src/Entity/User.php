@@ -10,13 +10,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\MemberRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(
  *   fields={"email"},
  *   message="L'email que vous avez indiqué est déjà utilisé !"
  * )
  */
-class Member implements UserInterface
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -30,7 +30,7 @@ class Member implements UserInterface
      * @Assert\NotBlank
      * @Assert\Length(min = 4, minMessage = "Votre nom d'utilisateur doit avoir au moins 4 caractères !")
      */
-    private $membername;
+    private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -70,7 +70,6 @@ class Member implements UserInterface
     private $token;
 
     /**
-     * @Assert\NotBlank
      * @Assert\Length(max=4096)
      */
     private $plainPassword;
@@ -86,14 +85,9 @@ class Member implements UserInterface
         return $this->id;
     }
 
-    public function getMembername(): ?string
+    public function setUsername(string $username): self
     {
-        return $this->membername;
-    }
-
-    public function setMembername(string $membername): self
-    {
-        $this->membername = $membername;
+        $this->username = $username;
 
         return $this;
     }
@@ -160,7 +154,7 @@ class Member implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->membername;
+        return (string) $this->username;
     }
 
     /**
