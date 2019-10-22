@@ -19,7 +19,7 @@ security:
                     - App\Security\UserAuthenticator
             logout:
                 path: app_logout
-                target: snowtricks_home
+                target: trick_home
 
             remember_me:
                 secret:   '%kernel.secret%'

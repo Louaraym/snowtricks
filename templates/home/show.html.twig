@@ -11,8 +11,8 @@
         <h2>{{trick.title}}</h2>
         {% if app.user %}
             <div class="card-body text-right">
-                <a href="{{ path('trick_edit', {'id': trick.id}) }}"><i class="fas fa-pencil-alt"></i></a>
-                <form method="post" action="{{ path('trick_delete', {id: trick.id}) }}" style="display: inline-block"
+                <a href="{{ path('admin_trick_edit', {'id': trick.id}) }}"><i class="fas fa-pencil-alt"></i></a>
+                <form method="post" action="{{ path('admin_trick_delete', {id: trick.id}) }}" style="display: inline-block"
                       onsubmit="return confirm('Etes-vous sûr de bien vouloir supprimer cette figure ?')">
                     <input type="hidden" name="_method" value="DELETE">
                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ trick.id) }}">
@@ -23,7 +23,7 @@
         {% if trick.imageFilename %}
             <img class="trick-img" src="{{ trick.imagePath | imagine_filter('medium') }}" alt="Image de la figure" style="width: 100%; height: auto">
         {% else %}
-            <img class="trick-img" src="{{ '../uploads/empty.jpg'  }}" style="width: 100%; height: auto" alt="Image de la figure">
+            <img class="trick-img" src="{{ '/uploads/empty.jpg'  }}" style="width: 100%; height: auto" alt="Image de la figure">
         {% endif %}
 
         <hr>

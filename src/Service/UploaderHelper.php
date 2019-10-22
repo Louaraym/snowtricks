@@ -38,6 +38,7 @@ class UploaderHelper
     public function uploadTrickImage(File $file, ?string $existingFilename): string
     {
         $newFilename = $this->uploadFile($file, self::TRICK_IMAGE);
+
         if ($existingFilename) {
             try {
                 $result = $this->filesystem->delete(self::TRICK_IMAGE.'/'.$existingFilename);
@@ -48,6 +49,7 @@ class UploaderHelper
                 $this->logger->alert(sprintf('Old uploaded file "%s" was missing when trying to delete', $existingFilename));
             }
         }
+
         return $newFilename;
     }
 
@@ -71,6 +73,7 @@ class UploaderHelper
     {
         $filesystem = $this->filesystem;
         $resource = $filesystem->readStream($path);
+
         if ($resource === false) {
             throw new \Exception(sprintf('Error opening stream for "%s"', $path));
         }
@@ -84,19 +87,25 @@ class UploaderHelper
         } else {
             $originalFilename = $file->getFilename();
         }
+
         $newFilename = pathinfo($originalFilename, PATHINFO_FILENAME).'-'.uniqid().'.'.$file->guessExtension();
+
         $filesystem = $this->filesystem;
+
         $stream = fopen($file->getPathname(), 'r');
+
         $result = $filesystem->writeStream(
             $directory.'/'.$newFilename,
             $stream
         );
+
         if ($result === false) {
             throw new \Exception(sprintf('Could not write uploaded file "%s"', $newFilename));
         }
         if (is_resource($stream)) {
             fclose($stream);
         }
+
         return $newFilename;
     }
 

@@ -28,8 +28,8 @@
                     <div class="card-body">
                         <a href="{{ path( 'trick_show', {'id': trick.id} ) }}" >{{trick.title}}</a> &nbsp
                         {% if app.user %}
-                            <a href="{{ path('trick_edit', {'id': trick.id}) }}"><i class="fas fa-pencil-alt"></i></a>
-                            <form method="post" action="{{ path('trick_delete', {id: trick.id}) }}" style="display: inline-block"
+                            <a href="{{ path('admin_trick_edit', {'id': trick.id}) }}"><i class="fas fa-pencil-alt"></i></a>
+                            <form method="post" action="{{ path('admin_trick_delete', {id: trick.id}) }}" style="display: inline-block"
                                   onsubmit="return confirm('Etes-vous sûr de bien vouloir supprimer cette figure ?')">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ trick.id) }}">

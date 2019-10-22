@@ -85,7 +85,7 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        return new RedirectResponse($this->urlGenerator->generate('snowtricks_home'));
+        return new RedirectResponse($this->urlGenerator->generate('trick_home'));
     }
 
     protected function getLoginUrl(): string
