@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des commentaires{% endblock %}
+
+{% block body %}
+    <hr>
+    <div class="row">
+        <div class="col-sm-12">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success text-center">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            <h1 class="h3 mb-3 font-weight-normal text-center">Gérer les commentaires </h1>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Tricks</th>
+                    <th>Auteurs</th>
+                    <th>Commentaires</th>
+                    <th>Date d'ajout</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for comment in comments %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('trick_show', {'id': comment.trick.id}) }}">
+                                {{ comment.trick.title }}
+                            </a>
+                        </td>
+                        <td>
+                            {{ comment.authorName.username }}
+                        </td>
+                        <td style="width: 20%;">
+                            {{ comment.content }}
+                        </td>
+                        <td>
+                            {{ comment.createdAt | date('d/m/y')}} à {{comment.createdAt | date('H:i')}}
+                        </td>
+                        <td>
+                            <form method="post" action="{{ path('comment_admin_delete', {id: comment.id}) }}" style="display: inline-block"
+                                  onsubmit="return confirm('Etes-vous sûr de vouloir supprimer ce commentaire ?')">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
+                                <button class="btn btn-outline border-0" ><i class="far fa-trash-alt"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center">
+                           Aucun commentaire retrouvé !
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

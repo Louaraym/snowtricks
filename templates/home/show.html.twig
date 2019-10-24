@@ -46,7 +46,18 @@
         </div>
         <hr>
     </div>
-
+    <div class="comments">
+        {% if app.user %}
+            {{ form_start(formComment) }}
+            {{ form_row(formComment.content, {'label' : "Laisser un commentaire", 'attr' : { 'placeholder' : "Votre commentaire", 'rows': 5} }) }}
+            <button type="submit" class="btn btn-success">Commenter</button>
+            {{ form_end(formComment) }}
+        {% else %}
+            <h2 class="h3 mb-3 mt-3 font-weight-normal">Connectez vous pour pouvoir commenter cette figure !</h2>
+            <a href="{{ path('app_login') }}" class="btn btn-primary">Connexion</a>
+        {% endif %}
+    </div>
+    <hr>
     <div class="row">
         <div class="col-sm-12">
             <h3> <i class="pr-3 fa fa-comment"> </i>{{ trick.comments|length }} Commentaires</h3>
@@ -63,18 +74,6 @@
                 </div>
 {#                </div>#}
             {% endfor %}
-            <hr>
-            <div class="comments">
-                {% if app.user %}
-                    {{ form_start(formComment) }}
-                    {{ form_row(formComment.content, {'label' : "Laisser un commentaire", 'attr' : { 'placeholder' : "Votre commentaire", 'rows': 5} }) }}
-                    <button type="submit" class="btn btn-success">Commenter</button>
-                    {{ form_end(formComment) }}
-                {% else %}
-                    <h2 class="h3 mb-3 mt-3 font-weight-normal">Connectez vous pour pouvoir commenter cette figure !</h2>
-                    <a href="{{ path('app_login') }}" class="btn btn-primary">Connexion</a>
-                {% endif %}
-            </div>
         </div>
     </div>
 <hr>

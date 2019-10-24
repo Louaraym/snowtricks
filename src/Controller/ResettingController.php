@@ -54,7 +54,7 @@ class ResettingController extends AbstractController
         $user = $userRepository->findOneByEmail($form->getData()['email']);
 
             if (!$user) {
-                $this->addFlash('warning', "Aucun Membre du site ne correspond à cet email.");
+                $this->addFlash('warning', 'Aucun Membre du site ne correspond à cet email.');
                 return $this->redirectToRoute('request_resetting');
             }
 
@@ -70,7 +70,7 @@ class ResettingController extends AbstractController
             ]);
 
             $mailer->sendMessage('from@email.com', $user->getEmail(), 'Réinitialisation de votre mot de passe', $bodyMail);
-            $this->addFlash('success', "Un mail vient de vous être envoyé pour réinitialiser votre mot de passe. Le lien qu'il contient sera valide 24h.");
+            $this->addFlash('success', "Un mail vient de vous être envoyé pour réinitialiser votre mot de passe. Le lien qu'il contient sera valide 10 min.");
 
             return $this->redirectToRoute('app_login');
         }
@@ -93,6 +93,7 @@ class ResettingController extends AbstractController
 
         $daySeconds = 60 * 10;
         $response = $interval > $daySeconds ? false : $response = true;
+
         return $response;
     }
 

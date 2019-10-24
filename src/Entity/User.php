@@ -16,7 +16,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *   message="L'email que vous avez indiqué est déjà utilisé !"
  * )
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id()
@@ -262,5 +262,48 @@ class User implements UserInterface
     public function setPlainPassword($password)
     {
         $this->plainPassword = $password;
+    }
+
+    /**
+     * String representation of object
+     * @link https://php.net/manual/en/serializable.serialize.php
+     * @return string the string representation of the object or null
+     * @since 5.1.0
+     */
+    public function serialize(): string
+    {
+        return serialize([
+            $this->id,
+            $this->username,
+            $this->email,
+            $this->password,
+            $this->comments,
+            $this->tricks,
+            $this->token,
+            $this->passwordRequestedAt,
+        ]);
+    }
+
+    /**
+     * Constructs the object
+     * @link https://php.net/manual/en/serializable.unserialize.php
+     * @param string $serialized <p>
+     * The string representation of the object.
+     * </p>
+     * @return void
+     * @since 5.1.0
+     */
+    public function unserialize($serialized): void
+    {
+        [
+            $this->id,
+            $this->username,
+            $this->email,
+            $this->password,
+            $this->comments,
+            $this->tricks,
+            $this->token,
+            $this->passwordRequestedAt,
+        ] = unserialize($serialized, ['allowed_class' => false]);
     }
 }
