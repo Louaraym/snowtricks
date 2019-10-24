@@ -1,15 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <hr>
-<div class="container mt-4 text-center">
-    <h1>Bienvenue dans le monde du Snowboard !</h1>
 
+<div class="container mt-4 text-center">
     {% for message in app.flashes('success') %}
         <div class="alert alert-success text-center">
             {{ message }}
         </div>
     {% endfor %}
+    <h1>Bienvenue dans le monde du Snowboard !</h1>
     <div>
         <img class="trick-img" src="{{ '../uploads/la_une.jpg'  }}" style="width: 100%; height: auto" alt="Image de la figure">
     </div>
@@ -38,6 +37,10 @@
                         {% endif %}
                     </div>
                 </div>
+            </div>
+            {% else %}
+            <div >
+                <p >Aucune figure retrouvée</p>
             </div>
         {% endfor %}
     </div>

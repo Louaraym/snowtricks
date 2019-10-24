@@ -4,41 +4,49 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationType;
+use App\Service\Mailer;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class UserAuthenticatorController extends AbstractController
 {
     /**
      * @Route("/inscription", name="app_registration")
+     * @param Mailer $mailer
      * @param UserPasswordEncoderInterface $encoder
      * @param Request $request
      * @param ObjectManager $manager
+     * @param TokenGeneratorInterface $tokenGenerator
      * @return Response
      */
-    public function registration(UserPasswordEncoderInterface $encoder, Request $request, ObjectManager $manager): Response
+    public function registration(Mailer $mailer, UserPasswordEncoderInterface $encoder, Request $request, ObjectManager $manager, TokenGeneratorInterface $tokenGenerator): Response
     {
         $user = new User();
-
         $form = $this->createForm(RegistrationType::class, $user);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
 
             $hash = $encoder->encodePassword($user, $user->getPassword());
-
             $user->setPassword($hash);
-
+            $user->setToken($tokenGenerator->generateToken());
             $manager->persist($user);
             $manager->flush();
 
-            return  $this->redirectToRoute('app_login');
+            $bodyMail = $mailer->createBodyMail('confirm_account/mail.html.twig', [
+                'user' => $user
+            ]);
+
+            $mailer->sendMessage('from@email.com', $user->getEmail(), 'Activation de votre compte', $bodyMail);
+            $this->addFlash('success', 'Votre inscription a bien été prise en compte. Un mail vient de vous être envoyé pour valider votre compte et pouvoir vous connecter !');
+
+            return  $this->redirectToRoute('trick_home');
         }
 
         return $this->render('security/registration.html.twig', [
@@ -46,9 +54,6 @@ class UserAuthenticatorController extends AbstractController
 
         ]);
     }
-
-
-
 
     /**
      * @Route("/login", name="app_login")
@@ -75,8 +80,8 @@ class UserAuthenticatorController extends AbstractController
     /**
      * @Route("/logout", name="app_logout")
      */
-    public function logout()
+    public function logout(): void
     {
-        throw new \Exception('This method can be blank - it will be intercepted by the logout key on your firewall');
+        throw new \RuntimeException('This method can be blank - it will be intercepted by the logout key on your firewall');
     }
 }

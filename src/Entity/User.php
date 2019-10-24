@@ -74,10 +74,16 @@ class User implements UserInterface, \Serializable
      */
     private $plainPassword;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $enabled;
+
     public function __construct()
     {
         $this->tricks = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->enabled = false;
     }
 
     public function getId(): ?int
@@ -281,6 +287,7 @@ class User implements UserInterface, \Serializable
             $this->tricks,
             $this->token,
             $this->passwordRequestedAt,
+            $this->enabled,
         ]);
     }
 
@@ -304,6 +311,19 @@ class User implements UserInterface, \Serializable
             $this->tricks,
             $this->token,
             $this->passwordRequestedAt,
+            $this->enabled,
         ] = unserialize($serialized, ['allowed_class' => false]);
+    }
+
+    public function getEnabled(): ?bool
+    {
+        return $this->enabled;
+    }
+
+    public function setEnabled(bool $enabled): self
+    {
+        $this->enabled = $enabled;
+
+        return $this;
     }
 }
