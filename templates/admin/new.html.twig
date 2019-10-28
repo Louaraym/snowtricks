@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une figure{% endblock %}
+
+{% block body %}
+    <hr>
+    <div class="container text-center">
+        <h1 class="h3 mb-3 mt-3 font-weight-normal">Ajouter une figure</h1>
+        <hr>
+        {{ include('admin/_form.html.twig', { button: 'Créer'}) }}
+        <hr>
+    </div>
+{% endblock %}
+
+
+
+

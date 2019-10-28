@@ -3,14 +3,14 @@
 {% block body %}
 
 <div class="container mt-4 text-center">
-    <h1>Bienvenue dans le monde du Snowboard !</h1>
     {% for message in app.flashes('success') %}
         <div class="alert alert-success text-center">
             {{ message }}
         </div>
     {% endfor %}
-    <div>
-        <img class="trick-img" src="{{ '../uploads/la_une.jpg'  }}" style="width: 100%; height: auto" alt="Image de la figure">
+{#    <img class="trick-img" src="{{ '../uploads/la_une.jpg'  }}" style="width: 100%; height: auto" alt="Image de la figure">#}
+    <div class="home">
+        <h1>Bienvenue dans le monde du Snowboard !</h1>
     </div>
     <hr>
     <div class="row">
@@ -26,15 +26,21 @@
                     </a>
                     <div class="card-body">
                         <a href="{{ path( 'trick_show', {'id': trick.id} ) }}" >{{trick.title}}</a> &nbsp
-                        <a href="{{ path('trick_edit', {'id': trick.id}) }}"><i class="fas fa-pencil-alt"></i></a>
-                        <form method="post" action="{{ path('trick_delete', {id: trick.id}) }}" style="display: inline-block"
-                              onsubmit="return confirm('Etes-vous sûr de bien vouloir supprimer cette figure ?')">
-                            <input type="hidden" name="_method" value="DELETE">
-                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ trick.id) }}">
-                            <button class="btn btn-outline border-0" ><i class="far fa-trash-alt"></i></button>
-                        </form>
+                        {% if app.user %}
+                            <a href="{{ path('admin_trick_edit', {'id': trick.id}) }}"><i class="fas fa-pencil-alt"></i></a>
+                            <form method="post" action="{{ path('admin_trick_delete', {id: trick.id}) }}" style="display: inline-block"
+                                  onsubmit="return confirm('Etes-vous sûr de bien vouloir supprimer cette figure ?')">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ trick.id) }}">
+                                <button class="btn btn-outline border-0" ><i class="far fa-trash-alt"></i></button>
+                            </form>
+                        {% endif %}
                     </div>
                 </div>
+            </div>
+            {% else %}
+            <div >
+                <p >Aucune figure retrouvée</p>
             </div>
         {% endfor %}
     </div>

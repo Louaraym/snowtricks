@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editer une figure{% endblock %}
+
+{% block body %}
+    <hr>
+    <div class="container text-center">
+        <h1 class="h3 mb-3 mt-3 font-weight-normal">Editer la figure</h1>
+        <hr>
+        <div class="row">
+            <div class="col-sm-8">
+                <h3>Details</h3>
+                {{ include('admin/_form.html.twig', { button: 'Editer la figure'}) }}
+            </div>
+            <div class="col-sm-4">
+                <h3 >Images</h3>
+                <ul class="list-group small js-trickImage-list" data-url="{{ path('admin_trick_list_images', {id: trick.id}) }}"></ul>
+                <hr>
+                <form action="{{ path('admin_trick_add_image', {id: trick.id}) }}" method="POST"
+                      enctype="multipart/form-data" class="dropzone js-trickImage-dropzone">
+                </form>
+            </div>
+        </div>
+    </div>
+    <hr>
+{% endblock %}
+
+
+
+
+

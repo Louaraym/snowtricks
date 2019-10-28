@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container mt-4 text-center">
+        <div class="mainPicture">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success text-center">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            <h2>{{trick.title}}</h2>
+            {% if app.user %}
+                <div class="card-body text-right">
+                    <a href="{{ path('admin_trick_edit', {'id': trick.id}) }}"><i class="fas fa-pencil-alt"></i></a>
+                    <form method="post" action="{{ path('admin_trick_delete', {id: trick.id}) }}" style="display: inline-block"
+                          onsubmit="return confirm('Etes-vous sûr de bien vouloir supprimer cette figure ?')">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ trick.id) }}">
+                        <button class="btn btn-outline border-0" ><i class="far fa-trash-alt"></i></button>
+                    </form>
+                </div>
+            {% endif %}
+
+            {% if trick.imageFilename %}
+                <img class="trick-img" src="{{ trick.imagePath | imagine_filter('medium') }}" alt="Image de la figure" style="width: 100%; height: auto">
+            {% else %}
+                <img class="trick-img" src="{{ '/uploads/empty.jpg'  }}" style="width: 100%; height: auto" alt="Image de la figure">
+            {% endif %}
+        </div>
+        <hr>
+        <div class="row">
+        {% for trickImageCollection in trick.trickImages %}
+            <div class="col-md-2">
+                <div class="card mb-3">
+                    <a href="{{ uploaded_asset(trickImageCollection.filePath) }}" target="_blank">
+                        <img class="trick-img" src="{{ trickImageCollection.filePath | imagine_filter('small') }}" alt="Image de la figure" style="width: 100%; height: auto" >
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+{#         {% for video in trick.videos %}#}
+{#             <iframe src="{{ video.video  }}" frameborder="0"></iframe>#}
+{#         {% endfor %}#}
+            {% for video in trick.videos %}
+               {{ video.video | raw }}
+            {% endfor %}
+        </div>
+        <hr>
+        <p> {{trick.description | raw}} </p>
+        <hr>
+        <div class="metadata mb-4">Ajoutée le {{trick.createdAt | date('d/m/y')}} à {{trick.createdAt | date('H:i')}}
+            dans le groupe : {{ trick.tricksGroup.title }} par {{trick.author.username }}
+            {% if trick.updatedAt %}
+            et modifié le {{trick.updatedAt| date('d/m/y')}} à {{trick.updatedAt | date('H:i')}}
+            {% endif %}
+        </div>
+        <hr>
+    </div>
+    <div class="comments">
+        {% if app.user %}
+            {{ form_start(formComment) }}
+            {{ form_row(formComment.content, {'label' : "Laisser un commentaire", 'attr' : { 'placeholder' : "Votre commentaire", 'rows': 5} }) }}
+            <button type="submit" class="btn btn-success">Commenter</button>
+            {{ form_end(formComment) }}
+        {% else %}
+            <h2 class="h3 mb-3 mt-3 font-weight-normal">Connectez vous pour pouvoir commenter cette figure !</h2>
+            <a href="{{ path('app_login') }}" class="btn btn-primary">Connexion</a>
+        {% endif %}
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-12">
+            <h3> <i class="pr-3 fa fa-comment"> </i>{{ trick.comments|length }} Commentaires</h3>
+            <hr>
+            {% for comment in trick.comments %}
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="comment-container d-inline-block pl-3 align-top">
+                            <small>  Publié le {{ comment.createdAt | date ('d/m/Y à H:i') }} par : {{ comment.authorName.username }}</small>
+                            <br>
+                            <p class="comment"> {{ comment.content | raw }}</p>
+                        </div>
+                    </div>
+                </div>
+{#                </div>#}
+            {% endfor %}
+        </div>
+    </div>
+<hr>
+{% endblock %}

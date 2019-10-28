@@ -11,7 +11,9 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 const $ = require('jquery');
+window.$ = $;
 
 // import the function from createTricks.js (the .js extension is optional)
 require('./uploadFile.js');
+require('./addVideos.js');
 require('./admin_trick_form.js');

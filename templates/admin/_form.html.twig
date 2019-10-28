@@ -2,7 +2,8 @@
 
     {{ form_row(formTrick.title, {'label': "Nom",'attr' : {'placeholder': "Nom de la figure"}}) }}
     {{ form_row(formTrick.tricksGroup, {'label': "Groupe"}) }}
-    {{ form_row(formTrick.description, {'attr': {'placeholder': "Description de la figure", 'rows': 10} }) }}
+    {{ form_row(formTrick.description, {'attr': {'placeholder': "Description de la figure", 'rows': 6} }) }}
+
 
     <div class="row">
         <div class="col-sm-5">
@@ -17,6 +18,8 @@
             {% endif %}
         </div>
     </div>
+
+{{ form_row(formTrick.videos) }}
 
 <button class="btn btn-primary">{{ button|default('Enregistrer') }}</button>
 

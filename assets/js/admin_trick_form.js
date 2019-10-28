@@ -38,6 +38,7 @@ class TrickImageList
     constructor($element) {
 
         this.$element = $element;
+
         this.trickImages = [];
         this.render();
         this.$element.on('click', '.js-trickImage-delete', (event) => {
@@ -80,7 +81,7 @@ class TrickImageList
                     ${trickImage.originalFilename}
                     <span>
                         <button class="js-trickImage-delete btn btn-link btn-sm"><span class="fa fa-trash"></span></button>
-                    </span>
+                    </span>             
                 </li>
                 `
         });

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Réinitialisation du mot de passe</title>
+</head>
+<body>
+<p>
+    Bonjour, <br>
+    Cliquez sur ce lien pour réinitialiser votre mot de passe.
+    {# pour que le lien fonctionne, il est indispensable qu'il soit absolu. #}
+    <a href="{{absolute_url(path('resetting', {'id': user.id, 'token': user.token}))}}">Réinitialiser votre mot de passe</a>
+</p>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Activation de votre compte</title>
+</head>
+<body>
+<p>
+    Bonjour, <br>
+    Cliquez sur ce lien pour activer votre compte.
+    <a href="{{absolute_url(path('confirm_account', {'id': user.id, 'username': user.username, 'token': user.token}))}}">Activer votre compte</a>
+</p>
+</body>
+</html>

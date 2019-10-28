@@ -1,13 +1,14 @@
 <?php
 
 
-namespace App\Controller;
+namespace App\Controller\admin;
 
 
 use App\Entity\Trick;
 use App\Entity\TrickImage;
 use App\Service\UploaderHelper;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,10 +18,13 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/admin/trick")
+ */
 class TrickImageController  extends AbstractController
 {
     /**
-     * @Route("/admin/trick/{id}/images", name="admin_trick_add_image", methods={"POST"})
+     * @Route("/add/image/{id}", name="admin_trick_add_image", methods={"POST"})
      * @param Trick $trick
      * @param Request $request
      * @param UploaderHelper $uploaderHelper
@@ -69,7 +73,7 @@ class TrickImageController  extends AbstractController
     }
 
     /**
-     * @Route("/admin/trick/{id}/images", methods="GET", name="admin_trick_list_images")
+     * @Route("/list/images/{id}", methods="GET", name="admin_trick_list_images")
      * @param Trick $trick
      * @return JsonResponse
      */
@@ -86,12 +90,12 @@ class TrickImageController  extends AbstractController
     }
 
     /**
-     * @Route("/admin/trick/image/{id}", name="admin_trick_delete_image", methods={"DELETE"})
+     * @Route("/image/{id}", name="admin_trick_delete_image", methods={"DELETE"})
      * @param TrickImage $trickImage
      * @param UploaderHelper $uploaderHelper
      * @param EntityManagerInterface $entityManager
      * @return Response
-     * @throws \Exception
+     * @throws Exception
      */
     public function deleteTrickImage(TrickImage $trickImage, UploaderHelper $uploaderHelper, EntityManagerInterface $entityManager): Response
     {
