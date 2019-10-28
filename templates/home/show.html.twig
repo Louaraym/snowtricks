@@ -39,9 +39,12 @@
                 </div>
             </div>
         {% endfor %}
-         {% for video in trick.videos %}
-             <iframe src="{{ video.video  }}" frameborder="0"></iframe>
-         {% endfor %}
+{#         {% for video in trick.videos %}#}
+{#             <iframe src="{{ video.video  }}" frameborder="0"></iframe>#}
+{#         {% endfor %}#}
+            {% for video in trick.videos %}
+               {{ video.video | raw }}
+            {% endfor %}
         </div>
         <hr>
         <p> {{trick.description | raw}} </p>
