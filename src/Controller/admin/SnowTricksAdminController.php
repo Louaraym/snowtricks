@@ -30,10 +30,9 @@ class SnowTricksAdminController extends AbstractController
      */
     public function new(UploaderHelper $uploaderHelper, Request $request, ObjectManager $manager): Response
     {
-
         $trick = new Trick();
-
         $form = $this->createForm(TrickType::class, $trick);
+
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
@@ -71,15 +70,19 @@ class SnowTricksAdminController extends AbstractController
     public function edit(UploaderHelper $uploaderHelper,Trick $trick, Request $request, ObjectManager $manager): Response
     {
         $form = $this->createForm(TrickType::class, $trick);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
+
             $uploadedFile = $form['imageFile']->getData();
+
             if ($uploadedFile){
                 $newFilename = $uploaderHelper->uploadTrickImage($uploadedFile, $trick->getImageFilename());
                 $trick->setImageFilename($newFilename);
             }
 
+            $trick->setUpdatedAt(new \DateTime());
             $manager->flush();
             $this->addFlash('success', 'Votre modification a été effectuée avec succès !');
             return  $this->redirectToRoute('trick_show', ['id' => $trick->getId()]);

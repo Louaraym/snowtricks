@@ -74,6 +74,11 @@ class Trick
      */
     private $comments;
 
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $videos;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -210,6 +215,18 @@ class Trick
                 $comment->setTrick(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getVideos(): ?array
+    {
+        return $this->videos;
+    }
+
+    public function setVideos(?array $videos): self
+    {
+        $this->videos = $videos;
 
         return $this;
     }

@@ -5,11 +5,17 @@ namespace App\Controller\admin;
 use App\Entity\Comment;
 use App\Repository\CommentRepository;
 use Doctrine\Common\Persistence\ObjectManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class CommentAdminController
+ * @package App\Controller\admin
+ * @IsGranted("ROLE_USER")
+ */
 class CommentAdminController extends AbstractController
 {
     /**
