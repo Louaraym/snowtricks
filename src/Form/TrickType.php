@@ -17,13 +17,6 @@ class TrickType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('videos', CollectionType::class,[
-                'prototype' => true,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'entry_type' => IframeType::class,
-                'label' => 'Vidéos',
-            ])
             ->add('tricksGroup', EntityType::class, [
                 'class' => TricksGroup::class,
                 'choice_label' => 'title'
@@ -32,6 +25,12 @@ class TrickType extends AbstractType
             ->add('imageFile', FileType::class, [
                 'mapped' => false,
                 'required' => false,
+            ])
+            ->add('videos', CollectionType::class,[
+                'prototype' => true,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'entry_type' => IframeType::class,
             ])
         ;
     }
