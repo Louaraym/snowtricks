@@ -80,7 +80,8 @@ class TrickImageList
                 <li class="list-group-item d-flex justify-content-between align-items-center" data-id="${trickImage.id}">
                     ${trickImage.originalFilename}
                     <span>
-                        <button class="js-trickImage-delete btn btn-link btn-sm"><span class="fa fa-trash"></span></button>
+                        <button class="js-trickImage-delete btn btn-link btn-sm">
+                        <span class="fa fa-trash"></span></button>
                     </span>             
                 </li>
                 `

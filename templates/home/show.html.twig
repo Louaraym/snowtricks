@@ -39,13 +39,10 @@
                 </div>
             </div>
         {% endfor %}
-{#         {% for video in trick.videos %}#}
-{#             <iframe src="{{ video.video  }}" frameborder="0"></iframe>#}
-{#         {% endfor %}#}
             {% for video in trick.videos %}
             <div class="col-md-2">
                 <div class="card mb-3">
-               {{ video.video | raw }}
+                    <iframe src="{{ video.videoIframe  }}" frameborder="0" height="109"  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </div>
             {% endfor %}
