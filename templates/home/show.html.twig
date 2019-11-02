@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
     <div class="container mt-4 text-center">
         <div class="row">
             <div class="col">
@@ -37,7 +36,7 @@
         <div class="row">
         {% for trickImageCollection in trick.trickImages %}
             <div class="col-md-2">
-                <div class="card mb-3">
+                <div class="card mb-1">
                     <a href="{{ uploaded_asset(trickImageCollection.filePath) }}" target="_blank">
                         <img class="trick-img" src="{{ trickImageCollection.filePath | imagine_filter('small') }}" alt="Image de la figure" style="width: 100%; height: auto" >
                     </a>
@@ -46,7 +45,7 @@
         {% endfor %}
             {% for video in trick.videos %}
             <div class="col-md-2">
-                <div class="card mb-3">
+                <div class="card mb-1">
                     <iframe src="{{ video.videoIframe  }}" frameborder="0" height="109"  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </div>
@@ -70,7 +69,7 @@
             <button type="submit" class="btn btn-success">Commenter</button>
             {{ form_end(formComment) }}
         {% else %}
-            <h2 class="h3 mb-3 mt-3 font-weight-normal">Connectez vous pour pouvoir commenter cette figure !</h2>
+            <h2 class="h3 font-weight-normal">Connectez vous pour pouvoir commenter cette figure !</h2>
             <a href="{{ path('app_login') }}" class="btn btn-primary">Connexion</a>
         {% endif %}
     </div>
@@ -89,9 +88,7 @@
                         </div>
                     </div>
                 </div>
-{#                </div>#}
             {% endfor %}
         </div>
     </div>
-<hr>
 {% endblock %}
