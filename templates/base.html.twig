@@ -25,7 +25,6 @@
                     <a class="nav-link" href="{{ path('app_registration') }}">S'inscrire</a>
                 </li>
             {% else %}
-
                 {% if is_granted('TRICK_CREATE') %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('admin_trick_new') }}">Ajouter une figure</a>
@@ -37,8 +36,8 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
                 </li>
-                <li class=" nav-welcome" style="font-size: 1.5em; color: #DDDDDD; text-align: end">
-                     Hello {{ app.user.username }} !
+                <li class=" nav-welcome" style="font-size: 1.5em; color: #DDDDDD">
+                    Hello {{ app.user.username }} !
                 </li>
             {% endif %}
         </ul>

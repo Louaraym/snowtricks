@@ -38,6 +38,9 @@ class SnowTricksAdminController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
 
             $trick->setAuthor($this->getUser());
+
+//            $videos =  $trick->getVideos();
+//            $trick->setVideos(preg_replace('#^<iframe.*src="((https|http)://[a-z0-9._/-]+)".*></iframe>$#i', '$s1', $videos));
             $uploadedFile = $form['imageFile']->getData();
 
             if ($uploadedFile){

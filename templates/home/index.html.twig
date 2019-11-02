@@ -3,14 +3,20 @@
 {% block body %}
 
 <div class="container mt-4 text-center">
-    {% for message in app.flashes('success') %}
-        <div class="alert alert-success text-center">
-            {{ message }}
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success text-center">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                <div class="card-body" style="padding: inherit">
+                <h1  class="h3 font-weight-normal">Bienvenue dans le monde du Snowboard !</h1>
+                </div>
+                <img class="trick-img" src="{{ '../uploads/la_une.jpg'  }}" style="width: 100%; height: auto" alt="Image de la figure">
+            </div>
         </div>
-    {% endfor %}
-{#    <img class="trick-img" src="{{ '../uploads/la_une.jpg'  }}" style="width: 100%; height: auto" alt="Image de la figure">#}
-    <div class="home">
-        <h1>Bienvenue dans le monde du Snowboard !</h1>
     </div>
     <hr>
     <div class="row">
@@ -24,7 +30,7 @@
                             <img class="trick-img" src="{{ '../uploads/empty.jpg' }}" style="width: 100%; height: auto" alt="Image de la figure">
                         {% endif %}
                     </a>
-                    <div class="card-body">
+                    <div class="card-body" style="padding: inherit">
                         <a href="{{ path( 'trick_show', {'id': trick.id} ) }}" >{{trick.title}}</a> &nbsp
                         {% if app.user %}
                             <a href="{{ path('admin_trick_edit', {'id': trick.id}) }}"><i class="fas fa-pencil-alt"></i></a>
@@ -39,8 +45,8 @@
                 </div>
             </div>
             {% else %}
-            <div >
-                <p >Aucune figure retrouvée</p>
+            <div>
+                <p>Aucune figure retrouvée</p>
             </div>
         {% endfor %}
     </div>
