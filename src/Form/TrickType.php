@@ -11,6 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Image;
+
 class TrickType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -21,10 +23,19 @@ class TrickType extends AbstractType
                 'class' => TricksGroup::class,
                 'choice_label' => 'title'
             ])
-            ->add('description', TextareaType::class)
+            ->add('description', TextareaType::class);
+
+        $imageConstraints = [
+            new Image([
+                'maxSize' => '2M',
+            ]),
+        ];
+
+        $builder
             ->add('imageFile', FileType::class, [
                 'mapped' => false,
                 'required' => false,
+                'constraints' => $imageConstraints,
             ])
             ->add('videos', CollectionType::class,[
                 'prototype' => true,
@@ -33,6 +44,7 @@ class TrickType extends AbstractType
                 'entry_type' => IframeType::class,
             ])
         ;
+
     }
     public function configureOptions(OptionsResolver $resolver): void
     {

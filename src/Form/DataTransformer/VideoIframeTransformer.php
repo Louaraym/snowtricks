@@ -4,12 +4,13 @@
 namespace App\Form\DataTransformer;
 
 
-use App\Entity\Trick;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class VideoIframeTransformer implements DataTransformerInterface
 {
+
+    public const REGEX_URL = '#((https|http)://[a-z0-9._/-]+)#iu';
 
     /**
      * Transforms a value from the original representation to a transformed representation.
@@ -52,17 +53,11 @@ class VideoIframeTransformer implements DataTransformerInterface
      */
     public function transform($value)
     {
-        // TODO: Implement transform() method.
         if (null === $value) {
             return '';
         }
 
-        if (!$value instanceof Trick) {
-            throw new \LogicException('The IframeType can only be used with Trick objects');
-        }
-
-        return $value->getVideos();
-
+        return $value;
     }
 
     /**
@@ -94,6 +89,8 @@ class VideoIframeTransformer implements DataTransformerInterface
      */
     public function reverseTransform($value)
     {
-        // TODO: Implement reverseTransform() method.
+        if (preg_match(self::REGEX_URL, $value, $matches)) {
+           return $matches[0];
+        }
     }
 }

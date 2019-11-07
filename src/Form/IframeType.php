@@ -15,24 +15,28 @@ class IframeType extends AbstractType
     {
         $builder
             ->add('videoIframe', TextType::class,  [
-                'label' => 'URL de la vidéo',
+                'label' => 'Lien de partage de la vidéo',
                 'attr' => [
-                    'placeholder' => 'Veuillez saisir l\'url de la vidéo'
+                    'placeholder' => 'Veuillez saisir votre lien de partage'
                 ],
                 'constraints' => [
                     new Regex([
-                        'pattern' => '#^(http|https)://[a-z0-9._/-]+$#i',
-//                      'pattern' => '#^<iframe.*src="((https|http)://[a-z0-9._/-]+)".*></iframe>$#i',
-                        'message' => 'Veuillez saisir une url valide !'
+                        'pattern' => VideoIframeTransformer::REGEX_URL,
+                        'message' => 'Veuillez saisir un len de partage valide !'
+                    ]),
+                    new Regex([
+                        //'pattern' => '#^<iframe.*src="((https|http)://[a-z0-9._/-]+)".*></iframe>$#i',
+                      'pattern' => '#youtube|dailymotion#i',
+                        'message' => 'Votre lien de partage doit contenir youtube ou dailymotion'
                     ]),
                     new NotNull([
-                        'message' => 'Veuillez saisir l\'url de la vidéo !'
+                        'message' => 'Veuillez saisir votre lien de partage !'
                         ])
                     ],
             ]);
 
-//        $builder->get('videoIframe')
-//            ->addModelTransformer(new VideoIframeTransformer());
+        $builder->get('videoIframe')
+            ->addModelTransformer(new VideoIframeTransformer());
     }
 
 }

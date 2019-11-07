@@ -40,7 +40,7 @@ class TrickImageController  extends AbstractController
         $violations = $validator->validate(
             $uploadedFile,
             new File([
-                'maxSize' => '5M',
+                'maxSize' => '2M',
                 'mimeTypes' => [
                     'image/*',
                 ]

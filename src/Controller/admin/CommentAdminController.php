@@ -42,12 +42,11 @@ class CommentAdminController extends AbstractController
     public function delete(Comment $comment, Request $request, ObjectManager $manager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $comment->getId(), $request->get('_token'))){
-            $manager->remove($comment);
-            $manager->flush();
-            $this->addFlash('success', 'Votre suppression a été effectuée avec succès !');
+                $manager->remove($comment);
+                $manager->flush();
+                $this->addFlash('success', 'Votre suppression a été effectuée avec succès !');
         }
 
         return  $this->redirectToRoute('comment_admin');
-
     }
 }

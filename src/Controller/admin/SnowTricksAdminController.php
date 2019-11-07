@@ -39,8 +39,6 @@ class SnowTricksAdminController extends AbstractController
 
             $trick->setAuthor($this->getUser());
 
-//            $videos =  $trick->getVideos();
-//            $trick->setVideos(preg_replace('#^<iframe.*src="((https|http)://[a-z0-9._/-]+)".*></iframe>$#i', '$s1', $videos));
             $uploadedFile = $form['imageFile']->getData();
 
             if ($uploadedFile){
@@ -86,6 +84,7 @@ class SnowTricksAdminController extends AbstractController
             }
 
             $trick->setUpdatedAt(new \DateTime());
+
             $manager->flush();
             $this->addFlash('success', 'Votre modification a été effectuée avec succès !');
             return  $this->redirectToRoute('trick_show', ['id' => $trick->getId()]);

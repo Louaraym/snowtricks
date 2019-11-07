@@ -12,9 +12,9 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UploaderHelper
 {
-    const TRICK_IMAGE = 'trick_image';
+    public const TRICK_IMAGE = 'trick_image';
 
-    const TRICK_IMAGE_COLLECTION = 'trick_image_collection';
+    public const TRICK_IMAGE_COLLECTION = 'trick_image_collection';
 
     /**
      * @var string
@@ -43,7 +43,7 @@ class UploaderHelper
             try {
                 $result = $this->filesystem->delete(self::TRICK_IMAGE.'/'.$existingFilename);
                 if ($result === false) {
-                    throw new \Exception(sprintf('Could not delete old uploaded file "%s"', $existingFilename));
+                    throw new \RuntimeException(sprintf('Could not delete old uploaded file "%s"', $existingFilename));
                 }
             } catch (FileNotFoundException $e) {
                 $this->logger->alert(sprintf('Old uploaded file "%s" was missing when trying to delete', $existingFilename));
@@ -75,7 +75,7 @@ class UploaderHelper
         $resource = $filesystem->readStream($path);
 
         if ($resource === false) {
-            throw new \Exception(sprintf('Error opening stream for "%s"', $path));
+            throw new \RuntimeException(sprintf('Error opening stream for "%s"', $path));
         }
         return $resource;
     }
@@ -88,20 +88,18 @@ class UploaderHelper
             $originalFilename = $file->getFilename();
         }
 
-        $newFilename = pathinfo($originalFilename, PATHINFO_FILENAME).'-'.uniqid().'.'.$file->guessExtension();
+        $newFilename = pathinfo($originalFilename, PATHINFO_FILENAME).'-'.uniqid('', true).'.'.$file->guessExtension();
 
         $filesystem = $this->filesystem;
 
-        $stream = fopen($file->getPathname(), 'r');
+        $stream = fopen($file->getPathname(), 'rb');
 
-        $result = $filesystem->writeStream(
-            $directory.'/'.$newFilename,
-            $stream
-        );
+        $result = $filesystem->writeStream($directory.'/'.$newFilename, $stream);
 
         if ($result === false) {
-            throw new \Exception(sprintf('Could not write uploaded file "%s"', $newFilename));
+            throw new \RuntimeException(sprintf('Could not write uploaded file "%s"', $newFilename));
         }
+        
         if (is_resource($stream)) {
             fclose($stream);
         }
@@ -114,7 +112,7 @@ class UploaderHelper
         $filesystem = $this->filesystem;
         $result = $filesystem->delete($path);
         if ($result === false) {
-            throw new \Exception(sprintf('Error deleting "%s"', $path));
+            throw new \RuntimeException(sprintf('Error deleting "%s"', $path));
         }
     }
 

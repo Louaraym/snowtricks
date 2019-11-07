@@ -4,30 +4,21 @@
 namespace App\Listener;
 
 
-use App\Entity\Trick;
-use App\Service\UploaderHelper;
+use App\Entity\TrickImage;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ImageCacheSubscriber implements EventSubscriber
 {
-
-    /**
-     * @var UploaderHelper
-     */
-    private $uploaderHelper;
-
     /**
      * @var CacheManager
      */
     private $cacheManager;
 
-    public function __construct(CacheManager $cacheManager, UploaderHelper $uploaderHelper)
+    public function __construct(CacheManager $cacheManager)
     {
-        $this->uploaderHelper  = $uploaderHelper;
         $this->cacheManager = $cacheManager;
     }
 
@@ -38,35 +29,32 @@ class ImageCacheSubscriber implements EventSubscriber
      */
     public function getSubscribedEvents(): array
     {
-      return [
-          'preRemove',
-          'preUpdate',
-      ];
+          return [
+              'preRemove',
+              'preUpdate',
+          ];
     }
 
-    public function preRemove(LifecycleEventArgs $args)
+    public function preRemove(LifecycleEventArgs $args): void
     {
         $entity = $args->getEntity();
 
-        if (!$entity instanceof Trick){
+        if (!$entity instanceof TrickImage){
             return;
         }
 
-        $this->cacheManager->remove($this->uploaderHelper->getPublicPath($entity->getImagePath()));
-
+        $this->cacheManager->remove();
     }
 
-    public function preUpdate(PreUpdateEventArgs $args)
+    public function preUpdate(PreUpdateEventArgs $args): void
     {
         $entity = $args->getEntity();
 
-       if (!$entity instanceof Trick){
+       if (!$entity instanceof TrickImage){
            return;
        }
 
-       if ( $entity->getImageFilename() instanceof UploadedFile){
-            $this->cacheManager->remove($this->uploaderHelper->getPublicPath($entity->getImagePath()));
-       }
+       $this->cacheManager->remove();
 
     }
 }
