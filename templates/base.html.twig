@@ -10,7 +10,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="{{ path('trick_home') }}">Accueil</a>
+    <a class="navbar-brand" style="margin-left: 75px;" href="{{ path('trick_home') }}">Accueil</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
             aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -25,22 +25,41 @@
                     <a class="nav-link" href="{{ path('app_registration') }}">S'inscrire</a>
                 </li>
             {% else %}
-                {% if is_granted('TRICK_CREATE') %}
+                {% if is_granted('ROLE_USER') %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('admin_trick_new') }}">Ajouter une figure</a>
                     </li>
                 {% endif %}
+                {% if is_granted('ROLE_ADMIN') %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('comment_admin') }}">Gérer les commentaires</a>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('account') }}">Gérer votre profile</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
                 </li>
-                <li class=" nav-welcome" style="font-size: 1.5em; color: #DDDDDD">
-                    Hello {{ app.user.username }} !
+
+            {% endif %}
+        </ul>
+        <ul class="navbar-nav text-center">
+            {% if is_granted('ROLE_USER') %}
+                <li class=" nav-welcome " style="font-size: 1.5em; color: #DDDDDD">
+                    Bonjour {{ app.user.username }} !
                 </li>
             {% endif %}
         </ul>
+
+        <ul class="navbar-nav ml-auto">
+            {% if is_granted('ROLE_USER') %}
+                <li class="nav-item dropdown" style="margin-right: 75px;">
+                    <img class="nav-profile-img rounded-circle" src="{{ '/uploads/avatar_profile.png'  }}" style="width: 100%; height: auto" alt="Image de la figure">
+                </li>
+            {% endif %}
+        </ul>
+
     </div>
 </nav>
 {% for message in app.flashes('error') %}

@@ -5,11 +5,19 @@ namespace App\Security\Voter;
 use App\Entity\Trick;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class TrickVoter extends Voter
 {
-    protected function supports($attribute, $subject)
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
+    protected function supports($attribute, $subject): bool
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
@@ -23,7 +31,7 @@ class TrickVoter extends Voter
      * @param TokenInterface $token
      * @return bool
      */
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
+    protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
         // if the user is anonymous, do not grant access
@@ -33,11 +41,15 @@ class TrickVoter extends Voter
 
         switch ($attribute) {
             case 'TRICK_EDIT':
-                return $subject->getAuthor() === $user;
-                break;
-            case 'TRICK_VIEW':
-                // logic to determine if the user can VIEW
-                // return true or false
+            case 'TRICK_DELETE':
+            // this is the author!
+            if ($subject->getAuthor() === $user) {
+                return true;
+            }
+            // this is the administrator!
+            if ($this->security->isGranted('ROLE_ADMIN')) {
+                return true;
+            }
                 break;
         }
 

@@ -12,24 +12,24 @@ class UserVoter extends Voter
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return $attribute === 'TRICK_CREATE';
+//        return $attribute === 'TRICK_CREATE';
     }
 
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
-        $user = $token->getUser();
+//        $user = $token->getUser();
         // if the user is anonymous, do not grant access
-        if (!$user instanceof UserInterface) {
+       /* if (!$user instanceof UserInterface) {
             return false;
-        }
+        }*/
 
         // ... (check conditions and return true to grant permission) ...
-        switch ($attribute) {
+        /*switch ($attribute) {
             case 'TRICK_CREATE':
                 return in_array('ROLE_USER', $user->getRoles(), true);
                 break;
         }
 
-        return false;
+        return false;*/
     }
 }

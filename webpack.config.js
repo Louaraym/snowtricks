@@ -27,6 +27,7 @@ Encore
     .addEntry('uploadFile', './assets/js/uploadFile.js')
     .addEntry('admin_trick_form', './assets/js/admin_trick_form.js')
     .addEntry('addVideos', './assets/js/addVideos.js')
+    .addEntry('account', './assets/js/account.js')
     //.addEntry('page2', './assets/js/page2.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
