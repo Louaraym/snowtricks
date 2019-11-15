@@ -36,7 +36,7 @@
                 </li>
                 {% endif %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('account') }}">Gérer votre profile</a>
+                    <a class="nav-link" href="{{ path('account') }}">Votre compte</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
@@ -47,7 +47,7 @@
         <ul class="navbar-nav text-center">
             {% if is_granted('ROLE_USER') %}
                 <li class=" nav-welcome " style="font-size: 1.5em; color: #DDDDDD">
-                    Bonjour {{ app.user.username }} !
+                   Bonjour {{ app.user.username }} !
                 </li>
             {% endif %}
         </ul>
@@ -55,7 +55,10 @@
         <ul class="navbar-nav ml-auto">
             {% if is_granted('ROLE_USER') %}
                 <li class="nav-item dropdown" style="margin-right: 75px;">
-                    <img class="nav-profile-img rounded-circle" src="{{ '/uploads/avatar_profile.png'  }}" style="width: 100%; height: auto" alt="Image de la figure">
+                    <a class="nav-link " href="{{ path('account') }}"  >
+                        <img class="nav-profile-img rounded-circle" src="{{ '/uploads/avatar_profile.png'  }}" style="width: 100%; height: auto" alt="Image de la figure">
+                    </a>
+
                 </li>
             {% endif %}
         </ul>

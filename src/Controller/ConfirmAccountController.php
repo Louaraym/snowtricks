@@ -26,7 +26,7 @@ class ConfirmAccountController extends AbstractController
             $user->setEnabled(true);
             $manager->flush();
             $this->addFlash('success', 'Bravo, votre compte a été activé avec succès, vous pouvez vous connecter en toute sécurité !');
-            return $this->redirectToRoute('trick_home');
+            return $this->redirectToRoute('account');
         }
 
         return $this->render('confirm_account/token_expired.html.twig');

@@ -8,36 +8,30 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container text-center">
         <div class="row user-menu-container square">
             <div class="col-md-12 user-details">
                 <div class="row spacepurplebg white">
                     <div class="col-md-2 no-pad">
-                        <div class="user-image">
+                        <div class="user-image mt-3">
                             <img class="nav-profile-img rounded-circle" src="{{ '/uploads/avatar_profile.png'  }}" style="width: 50%; height: auto" alt="Image de la figure">
                         </div>
                     </div>
                     <div class="col-md-10 no-pad">
-                        <div class="user-pad">
-                            <h3>Welcome back, {{ app.user.username }}</h3>
-                            <a class="btn btn-labeled btn-info" href="#">
-                                <span class="btn-label"><i class="fa fa-pencil"></i></span>Update
-                            </a>
+                        <div class="user-pad ">
+                            <h3>Bon retour parmi nous {{ app.user.username }}</h3>
+                            <p>Gérez vos informations, ainsi que la confidentialité et la sécurité de vos données pour profiter au mieux de nos services </p>
                         </div>
                     </div>
                 </div>
                 <div class="row overview">
-                    <div class="col-md-4 user-pad text-center">
-                        <h3>FIGURES</h3>
-                        <h4>5</h4>
+                    <div class="col-md-6 user-pad text-center">
+                        <h3 class="h5 font-weight-normal">VOS FIGURES AJOUTEES</h3>
+                        <h4>{{ app.user.tricks|length }} </h4>
                     </div>
                     <div class="col-md-4 user-pad text-center">
-                        <h3>COMMENTAIRES</h3>
-                        <h4>25</h4>
-                    </div>
-                    <div class="col-md-4 user-pad text-center">
-                        <h3>LIKES</h3>
-                        <h4>992</h4>
+                        <h3 class="h5 font-weight-normal">VOS COMMENTAIRES POSTES</h3>
+                        <h4>{{ app.user.comments|length }}</h4>
                     </div>
                 </div>
             </div>
