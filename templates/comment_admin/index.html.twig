@@ -26,7 +26,7 @@
                 {% for comment in comments %}
                     <tr>
                         <td>
-                            <a href="{{ path('trick_show', {'id': comment.trick.id}) }}">
+                            <a href="{{ path('trick_show', {'slug': comment.trick.slug,'id': comment.trick.id}) }}">
                                 {{ comment.trick.title }}
                             </a>
                         </td>

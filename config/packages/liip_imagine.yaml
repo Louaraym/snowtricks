@@ -45,3 +45,11 @@ liip_imagine:
                     size:          [50, 50]
                     mode:          outbound
                     allow_upscale: false
+
+        avatar_medium:
+              quality: 75
+              filters:
+                thumbnail:
+                  size:          [130, 130]
+                  mode:          outbound
+                  allow_upscale: false

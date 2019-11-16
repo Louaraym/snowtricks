@@ -18,12 +18,12 @@
             <div class="col-md-12 user-details">
                 <div class="row spacepurplebg white">
                     <div class="col-md-2 no-pad">
-                        <div class="user-image mt-4">
+                        <div class="user-image m-2">
                             <a href="{{ path('user_account_update', {user: app.user.username}) }}" class="user-image">
                                 {% if app.user.avatarFilename %}
-                                    <img class="nav-profile-img rounded-circle" src="{{ app.user.avatarPath | imagine_filter('avatar_thumbnail') }}" alt="Image de la figure" style="height: auto">
+                                    <img class="nav-profile-img rounded-circle width-full height-full" src="{{ app.user.avatarPath | imagine_filter('avatar_medium') }}" alt="photo de profil" title="Changer votre photo">
                                 {% else %}
-                                <img class="nav-profile-img rounded-circle" src="{{ '/uploads/avatar_profile.png'  }}" style="width: 50%; height: auto" alt="Image de la figure">
+                                <img class="nav-profile-img rounded-circle" src="{{ '/uploads/avatar_profile.png'  }}" style="width: 50%; height: auto" alt="photo de profil" title="Changer votre photo">
                                 {% endif %}
                             </a>
                         </div>

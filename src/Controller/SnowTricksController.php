@@ -29,14 +29,23 @@ class SnowTricksController extends AbstractController
 
 
     /**
-     * @Route("/trick/show/{id}", name="trick_show")
+     * @Route("/trick/show/{slug}-{id}", name="trick_show", requirements={"slug": "[a-z0-9\-]*"})
      * @param Trick $trick
      * @param Request $request
      * @param ObjectManager $manager
+     * @param String $slug
      * @return Response
      */
-    public function show(Trick $trick, Request $request, ObjectManager $manager): Response
+    public function show(Trick $trick, Request $request, ObjectManager $manager, String $slug): Response
     {
+        $newSlug = $trick->getSlug();
+        if ($newSlug !== $slug){
+            return $this->redirectToRoute('trick_show', [
+                'id' => $trick->getId(),
+                'slug' => $newSlug,
+            ], 301);
+        }
+
         $comment = new Comment();
 
         $form = $this->createForm(CommentType::class, $comment);
@@ -50,7 +59,7 @@ class SnowTricksController extends AbstractController
             $manager->persist($comment);
             $manager->flush();
 
-            return $this->redirectToRoute('trick_show', ['id' => $trick->getId()]);
+            return $this->redirectToRoute('trick_show', ['slug' => $newSlug,'id' => $trick->getId()]);
 
         }
 

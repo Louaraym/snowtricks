@@ -23,15 +23,15 @@
         {% for trick in tricks %}
             <div class="col-md-3">
                 <div class="card mb-4">
-                    <a href="{{ path( 'trick_show', {'id': trick.id} ) }}">
+                    <a href="{{ path( 'trick_show', {'slug': trick.slug,'id': trick.id} ) }}">
                         {% if trick.imageFilename %}
-                            <img class="trick-img" src="{{ trick.imagePath | imagine_filter('small') }}" alt="Image de la figure" style="width: 100%; height: auto">
+                            <img class="trick-img" src="{{ trick.imagePath | imagine_filter('small') }}" alt="Image de la figure" style="width: 100%; height: auto" title="Voir la figure">
                         {% else %}
-                            <img class="trick-img" src="{{ '../uploads/empty.jpg' }}" style="width: 100%; height: auto" alt="Image de la figure">
+                            <img class="trick-img" src="{{ '../uploads/empty.jpg' }}" style="width: 100%; height: auto" alt="Image de la figure" title="Voir la figure">
                         {% endif %}
                     </a>
                     <div class="card-body" style="padding: inherit">
-                        <a href="{{ path( 'trick_show', {'id': trick.id} ) }}" >{{trick.title}}</a> &nbsp
+                        <a href="{{ path( 'trick_show', {'slug': trick.slug, 'id': trick.id} ) }}" >{{trick.title}}</a> &nbsp
                         {% if app.user %}
                             <a href="{{ path('admin_trick_edit', {'id': trick.id}) }}"><i class="fas fa-pencil-alt"></i></a>
                             <form method="post" action="{{ path('admin_trick_delete', {id: trick.id}) }}" style="display: inline-block"

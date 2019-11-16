@@ -87,7 +87,7 @@ class SnowTricksAdminController extends AbstractController
 
             $manager->flush();
             $this->addFlash('success', 'Votre modification a été effectuée avec succès !');
-            return  $this->redirectToRoute('trick_show', ['id' => $trick->getId()]);
+            return  $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug(),'id' => $trick->getId()]);
         }
 
         return $this->render('admin/edit.html.twig', [
