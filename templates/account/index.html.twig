@@ -8,13 +8,24 @@
 {% endblock %}
 
 {% block body %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success text-center mt-4">
+            {{ message }}
+        </div>
+    {% endfor %}
     <div class="container text-center">
         <div class="row user-menu-container square">
             <div class="col-md-12 user-details">
                 <div class="row spacepurplebg white">
                     <div class="col-md-2 no-pad">
-                        <div class="user-image mt-3">
-                            <img class="nav-profile-img rounded-circle" src="{{ '/uploads/avatar_profile.png'  }}" style="width: 50%; height: auto" alt="Image de la figure">
+                        <div class="user-image mt-4">
+                            <a href="{{ path('user_account_update', {user: app.user.username}) }}" class="user-image">
+                                {% if app.user.avatarFilename %}
+                                    <img class="nav-profile-img rounded-circle" src="{{ app.user.avatarPath | imagine_filter('avatar_thumbnail') }}" alt="Image de la figure" style="height: auto">
+                                {% else %}
+                                <img class="nav-profile-img rounded-circle" src="{{ '/uploads/avatar_profile.png'  }}" style="width: 50%; height: auto" alt="Image de la figure">
+                                {% endif %}
+                            </a>
                         </div>
                     </div>
                     <div class="col-md-10 no-pad">

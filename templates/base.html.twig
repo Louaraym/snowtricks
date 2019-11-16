@@ -19,10 +19,10 @@
         <ul class="navbar-nav mr-auto">
             {% if not app.user %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_login') }}"> S'identifier</a>
+                    <a class="nav-link" href="{{ path('app_login') }}"> Mon Compte</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_registration') }}">S'inscrire</a>
+                    <a class="nav-link" href="{{ path('app_registration') }}">M'inscrire</a>
                 </li>
             {% else %}
                 {% if is_granted('ROLE_USER') %}
@@ -36,7 +36,7 @@
                 </li>
                 {% endif %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('account') }}">Votre compte</a>
+                    <a class="nav-link" href="{{ path('account') }}">Mon compte</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
@@ -51,14 +51,16 @@
                 </li>
             {% endif %}
         </ul>
-
         <ul class="navbar-nav ml-auto">
             {% if is_granted('ROLE_USER') %}
                 <li class="nav-item dropdown" style="margin-right: 75px;">
                     <a class="nav-link " href="{{ path('account') }}"  >
+                        {% if app.user.avatarFilename %}
+                            <img class="nav-profile-img rounded-circle" src="{{ app.user.avatarPath | imagine_filter('avatar_thumbnail') }}" alt="Image de la figure" style="height: auto">
+                        {% else %}
                         <img class="nav-profile-img rounded-circle" src="{{ '/uploads/avatar_profile.png'  }}" style="width: 100%; height: auto" alt="Image de la figure">
+                        {% endif %}
                     </a>
-
                 </li>
             {% endif %}
         </ul>
