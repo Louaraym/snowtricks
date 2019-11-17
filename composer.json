@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "cocur/slugify": "^3.2",
+        "knplabs/knp-paginator-bundle": "^4.1",
         "liip/imagine-bundle": "^2.2",
         "oneup/flysystem-bundle": "^3.1",
         "sensio/framework-extra-bundle": "^5.1",
