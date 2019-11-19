@@ -12,7 +12,7 @@
         <div class="col-sm-3">
             {% if formTrick.vars.data.imageFilename |default %}
                 <a href="{{ uploaded_asset(formTrick.vars.data.imagePath) }}" target="_blank">
-                    <img src="{{ formTrick.vars.data.imagePath|imagine_filter('small') }}" height="100" alt="Image à la une">
+                    <img src="{{ formTrick.vars.data.imagePath|imagine_filter('small') }}" height="100" alt="Image à la une" title="Agrandir la figure">
                 </a>
             {% endif %}
         </div>

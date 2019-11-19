@@ -12,18 +12,18 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <a class="navbar-brand" style="margin-left: 85px;" href="{{ path('trick_home') }}">Accueil</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-            aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" title="Ouvrir le menu">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
             {% if is_granted('ROLE_USER') %}
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Ouvrir le menu">
                         {% if app.user.avatarFilename %}
-                            <img class="nav-profile-img rounded-circle" src="{{ app.user.avatarPath | imagine_filter('avatar_thumbnail') }}" alt="Image de la figure" style="height: auto">
+                            <img class="nav-profile-img rounded-circle" src="{{ app.user.avatarPath | imagine_filter('avatar_thumbnail') }}" title="Ouvrir le menu" alt="photo de profil" style="height: auto">
                         {% else %}
-                            <img class="nav-profile-img rounded-circle" src="{{ '/uploads/avatar_profile.png'  }}" style="width: 90%; height: auto" alt="Image de la figure">
+                            <img class="nav-profile-img rounded-circle" src="{{ '/uploads/avatar_profile.png'  }}" style="width: 90%; height: auto" title="Ouvrir le menu" alt="photo de profil">
                         {% endif %}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">

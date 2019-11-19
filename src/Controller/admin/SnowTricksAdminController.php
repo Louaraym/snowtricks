@@ -59,7 +59,7 @@ class SnowTricksAdminController extends AbstractController
 
     /**
      * @Route("/edit/{id}", name="admin_trick_edit", methods="GET|POST")
-     * @IsGranted("TRICK_EDIT", subject="trick")
+     * @IsGranted("TRICK_MANAGE", subject="trick")
      * @param UploaderHelper $uploaderHelper
      * @param Trick $trick
      * @param Request $request
@@ -99,7 +99,7 @@ class SnowTricksAdminController extends AbstractController
 
     /**
      * @Route("/delete/{id}", name="admin_trick_delete", methods= "DELETE")
-     *  * @IsGranted("TRICK_DELETE", subject="trick")
+     * @IsGranted("TRICK_MANAGE", subject="trick")
      * @param Trick $trick
      * @param Request $request
      * @param ObjectManager $manager

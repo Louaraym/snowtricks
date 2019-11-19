@@ -21,7 +21,7 @@ class TrickVoter extends Voter
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, ['TRICK_EDIT', 'TRICK_DELETE'])
+        return $attribute === 'TRICK_MANAGE'
             && $subject instanceof Trick;
     }
 
@@ -40,8 +40,7 @@ class TrickVoter extends Voter
         }
 
         switch ($attribute) {
-            case 'TRICK_EDIT':
-            case 'TRICK_DELETE':
+            case 'TRICK_MANAGE':
             // this is the author!
             if ($subject->getAuthor() === $user) {
                 return true;

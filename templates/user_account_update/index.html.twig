@@ -3,8 +3,8 @@
 {% block title %}Account update{% endblock %}
 
 {% block body %}
-    <div class="registration mt-4">
-        <h1 class="h3 font-weight-normal text-center mt-4">Changer votre photo de profil</h1>
+    <div class="user_avatar_update">
+        <h1 class="h4 font-weight-normal text-center">Changer votre photo de profil</h1>
         {{ form_start(avatarUpdateForm) }}
 
         {{ form_row(avatarUpdateForm.avatarFile, {'label': "photo de profil",

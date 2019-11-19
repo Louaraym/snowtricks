@@ -2,7 +2,7 @@
 
 {% block body %}
 
-<div class="container mt-4 text-center">
+<div class="home_page_container text-center">
     <div class="row">
         <div class="col">
             <div class="card">
@@ -14,7 +14,7 @@
                 <div class="card-body" style="padding: inherit">
                 <h1  class="h3 font-weight-normal">Bienvenue dans le monde du Snowboard !</h1>
                 </div>
-                <img class="trick-img" src="{{ '../uploads/la_une.jpg'  }}" style="width: 100%; height: auto" alt="Image de la figure">
+                <img class="trick-img" src="{{ '../uploads/la_une.jpg'  }}" style="width: 100%; height: auto" alt="Image page d'accueil">
             </div>
         </div>
     </div>
@@ -25,14 +25,14 @@
                 <div class="card mb-4">
                     <a href="{{ path( 'trick_show', {'slug': trick.slug,'id': trick.id} ) }}">
                         {% if trick.imageFilename %}
-                            <img class="trick-img" src="{{ trick.imagePath | imagine_filter('small') }}" alt="Image de la figure" style="width: 100%; height: auto" title="Voir la figure">
+                            <img class="trick-img" src="{{ trick.imagePath | imagine_filter('small') }}" alt="Image de la figure" style="width: 100%; height: auto" title="Consulter la figure">
                         {% else %}
-                            <img class="trick-img" src="{{ '../uploads/empty.jpg' }}" style="width: 100%; height: auto" alt="Image de la figure" title="Voir la figure">
+                            <img class="trick-img" src="{{ '../uploads/empty.jpg' }}" style="width: 100%; height: auto" alt="Image de la figure" title="Consulter la figure">
                         {% endif %}
                     </a>
                     <div class="card-body" style="padding: inherit">
-                        <a href="{{ path( 'trick_show', {'slug': trick.slug, 'id': trick.id} ) }}" >{{trick.title}}</a> &nbsp
-                        {% if app.user %}
+                        <a href="{{ path( 'trick_show', {'slug': trick.slug, 'id': trick.id} ) }}" ><span style="font-size: 1.2em; font-weight: bold; color: black">{{trick.title}}</span></a> &nbsp
+                        {% if is_granted('TRICK_MANAGE', trick) %}
                             <a href="{{ path('admin_trick_edit', {'id': trick.id}) }}"><i class="fas fa-pencil-alt"></i></a>
                             <form method="post" action="{{ path('admin_trick_delete', {id: trick.id}) }}" style="display: inline-block"
                                   onsubmit="return confirm('Etes-vous sûr de bien vouloir supprimer cette figure ?')">

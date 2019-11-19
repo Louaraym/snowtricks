@@ -2,19 +2,74 @@ body {
     background-color: lightgray;
 }
 
-.registration, .form-login, .comments, .grid-container {
-   margin: 0 auto;
-    width: 40%;
+/* REGISTRATION  LOGIN AND RESETTING PASSWORD*/
+.form_registration, .form_login, .resetTing_password, .user_avatar_update {
+    width: 100%;
+    max-width: 450px;
     text-align: center;
+    background-color: white;
+    padding: 10px;
+    border-radius: 20px;
+
+}
+
+.form_login, .resetTing_password {
+    margin: 90px auto 240px;
+}
+
+.form_registration {
+    margin: 60px auto 150px;
+}
+
+.resetTing_password {
+    margin: 100px auto 300px;
+}
+
+.user_avatar_update{
+    margin: 100px auto 350px;
 }
 
 /* FOOTER */
-
 .footer {
     bottom: 0;
-    height: 60px;
-    line-height: 60px;
-    margin-top: 5px;
+    width: 100%;
+    height: 80px;
+    line-height: 80px;
+    background-color: white;
+    margin-top: 10px;
+}
 
+/* HOME PAGE */
+.home_page_container, .trick_show_container, .comment_admin_container, .add_trick_container, .edit_trick_container{
+    width: 100%;
+    max-width: 1000px;
+    margin: 20px auto 0;
+    background-color: white;
+    padding: 10px;
+    border-radius: 20px;
+
+}
+
+.comment_admin_container, .add_trick_container{
+    width: 100%;
+    max-width: 1000px;
+    margin: 20px auto 0;
+    background-color: white;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.form_comments {
+    width: 100%;
+    max-width: 350px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+
+.grid-container {
+    margin: 0 auto;
+    width: 40%;
+    text-align: center;
 }
 

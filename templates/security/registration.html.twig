@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="registration mt-4">
+<div class="form_registration">
     <h1 class="h3 mb-3 font-weight-normal">Inscription</h1>
     {{ form_start(form) }}
 
@@ -11,7 +11,7 @@
     {{ form_row(form.confirm_password, {'label': "Confirmation mot de passe",
         'attr' : { 'placeholder': "Repétez votre mot de passe"} }) }}
 
-    <button class="btn btn-lg btn-primary" type="submit">M'inscrire </button>
+    <button class="btn btn-lg btn-primary mb-10" type="submit">S'inscrire </button>
 
     {{ form_end(form) }}
 </div>
