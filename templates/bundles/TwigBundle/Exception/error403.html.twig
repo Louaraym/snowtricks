@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page non trouvée{% endblock %}
+
+{% block body %}
+    <div class="error_403_container text-center">
+        <h1 class="h3 error_403 font-weight-bold" style="color: red">Accès non autorisé !</h1>
+        <p>
+           Vous n'êtes pas autorisé à consulter la page démandée car vous ne disposez pas des droits d'accès necessaires.
+        </p>
+    </div>
+{% endblock %}

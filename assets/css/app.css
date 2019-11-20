@@ -36,7 +36,7 @@ body {
     height: 80px;
     line-height: 80px;
     background-color: white;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 /* HOME PAGE */
@@ -66,10 +66,57 @@ body {
     margin: 0 auto;
 }
 
-
-.grid-container {
-    margin: 0 auto;
-    width: 40%;
-    text-align: center;
+/* Pagination */
+.pagination{
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto 25px;
 }
+
+.page-link{
+    background-color: lightgray;
+    color: #222222;
+}
+
+.page-item.active .page-link{
+    background-color: #2C3E50;
+   color:white;
+}
+
+/*.page-item.disabled .page-link{*/
+/*    background-color: #2C3E50;*/
+/*    color:white;*/
+/*}*/
+
+.page-item.disabled .page-link{
+    background-color:  lightgray;
+    color: #222222;
+}
+
+.page-item .page-link:hover{
+    background-color: #2C3E50;
+    color:white;
+}
+
+/* ERROR PAGES */
+.error_404_container, .error_403_container, .error_container{
+    width: 100%;
+    max-width: 570px;
+    margin: 50px auto 60px;
+    background-color: white;
+    padding: 50px 0 400px;
+    border-radius: 20px;
+}
+
+.error_container{
+    width: 100%;
+    max-width: 720px;
+    margin: 50px auto 60px;
+    background-color: white;
+    padding: 50px 0 330px;
+    border-radius: 20px;
+}
+
+
+
 

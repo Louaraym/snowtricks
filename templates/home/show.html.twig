@@ -71,7 +71,7 @@
         {% if app.user %}
             {{ form_start(formComment) }}
             {{ form_row(formComment.content, {'label' : "Laisser un commentaire", 'attr' : { 'placeholder' : "Votre commentaire", 'rows': 5} }) }}
-            <button type="submit" class="btn btn-success">Commenter</button>
+            <button type="submit" class="btn btn-primary">Commenter</button>
             {{ form_end(formComment) }}
         {% else %}
             <h2 class="h4 font-weight-normal">Connectez vous pour pouvoir commenter cette figure !</h2>
@@ -87,9 +87,9 @@
                 <div class="row">
                     <div class="col-sm-12">
                         {% if  comment.authorName.avatarFilename %}
-                        <img class="nav-profile-img rounded-circle" src="{{ comment.authorName.avatarPath | imagine_filter('avatar_thumbnail') }}" alt="Image de la figure" style="height: auto">
+                        <img class="nav-profile-img rounded-circle" src="{{ comment.authorName.avatarPath | imagine_filter('avatar_thumbnail') }}" alt="photo de profil" style="height: auto">
                         {% else %}
-                        <img class="nav-profile-img rounded-circle" src="{{ '/uploads/avatar_profile.png'  }}" style="width: 4%; height: auto" alt="Image de la figure">
+                        <img class="nav-profile-img rounded-circle" src="{{ '/uploads/avatar_profile.png'  }}" style="width: auto; height: auto" alt="photo de profi">
                         {% endif %}
                         <div class="comment-container d-inline-block pl-3 align-top">
                             <h3 class=" h4 trick_author font-weight-bold">{{comment.authorName.username}}</h3>

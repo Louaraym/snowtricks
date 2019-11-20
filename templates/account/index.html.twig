@@ -23,7 +23,7 @@
                                 {% if app.user.avatarFilename %}
                                     <img class="nav-profile-img rounded-circle width-full height-full" src="{{ app.user.avatarPath | imagine_filter('avatar_medium') }}" alt="photo de profil" title="Changer votre photo de profil">
                                 {% else %}
-                                <img class="nav-profile-img rounded-circle" src="{{ '/uploads/avatar_profile.png'  }}" style="width: 50%; height: auto" alt="photo de profil" title="Changer votre photo de profil">
+                                <img class="nav-profile-img rounded-circle" src="{{ '/uploads/user_avatar.jpg'  }}" style="width: auto; height: auto" alt="photo de profil" title="Changer votre photo de profil">
                                 {% endif %}
                             </a>
                         </div>
