@@ -1,7 +1,7 @@
 var $collectionHolder;
 
 // setup an "add a video" link
-var $addVideoButton = $('<button type="button" class="add_video_link">Ajouter une vidéo</button>');
+var $addVideoButton = $('<button type="button" class="add_video_link">Intégrer une vidéo</button>');
 var $newLink = $('<div></div>').append($addVideoButton);
 
 $(document).ready(function() {
