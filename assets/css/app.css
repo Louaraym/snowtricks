@@ -1,5 +1,9 @@
 body {
-    background-color: lightgray;
+    background: url("../images/mountains-peaks-snow.jpg") no-repeat fixed;
+}
+
+.navbar {
+    background:blue;
 }
 
 /* REGISTRATION  LOGIN AND RESETTING PASSWORD*/
@@ -82,11 +86,6 @@ body {
     background-color: #2C3E50;
    color:white;
 }
-
-/*.page-item.disabled .page-link{*/
-/*    background-color: #2C3E50;*/
-/*    color:white;*/
-/*}*/
 
 .page-item.disabled .page-link{
     background-color:  lightgray;
