@@ -26,7 +26,7 @@ liip_imagine:
             quality: 75
             filters:
                 thumbnail:
-                    size:          [380, 270]
+                    size:          [380, 285]
                     mode:          outbound
                     allow_upscale: false
 

@@ -28,7 +28,7 @@
                     {% if trick.imageFilename %}
                         <img class="trick-img" src="{{ trick.imagePath | imagine_filter('medium') }}" alt="Image de la figure" style="width: 100%; height: auto">
                     {% else %}
-                        <img class="trick-img" src="{{ '/uploads/empty.jpg'  }}" style="width: 100%; height: auto" alt="Image de la figure">
+                        <img class="trick-img" src="{{ '/uploads/empty_medium.jpg'  }}" style="width: 100%; height: auto" alt="Image de la figure">
                     {% endif %}
                     </div>
                 </div>
@@ -47,7 +47,9 @@
             {% for video in trick.videos %}
             <div class="col-md-3">
                 <div class="card mb-1">
-                    <iframe src="{{ video.videoIframe  }}" frameborder="0" height= "150"  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <div class="embed-responsive embed-responsive-4by3">
+                    <iframe src="{{ video.videoIframe }}" style="border:0;" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
                 </div>
             </div>
             {% endfor %}
