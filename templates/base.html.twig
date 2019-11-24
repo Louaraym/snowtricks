@@ -30,9 +30,11 @@
                         <a class="dropdown-item" href="{{ path('account') }}">Profile</a>
                         <a class="dropdown-item" href="{{ path('admin_trick_new') }}">Ajouter une figure</a>
                         {% if is_granted('ROLE_ADMIN') %}
-                            <a class="dropdown-item" href="{{ path('comment_admin') }}">Gérer les commentaires</a>
+                            <a class="dropdown-item" href="{{ path('comment_admin') }}" >Gérer les commentaires</a>
                         {% endif %}
-                        <a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a>
+                        <a class="dropdown-item" href="{{ path('app_logout') }}" onclick="return confirm(
+                             'Vous êtes sur le point de vous déconnecter.\n'+
+                             'Êtes-vous sûr de vouloir continuer ?')">Se déconnecter</a>
                     </div>
                 </li>
             {% else %}
@@ -54,15 +56,7 @@
     </div>
 </nav>
 
-{% for message in app.flashes('error') %}
-    <div class="alert alert-danger">
-        {{ message }}
-    </div>
-{% endfor %}
-
-<div class="container">
-    {% block body %}{% endblock %}
-</div>
+{% block body %}{% endblock %}
 
 <footer class="footer">
     <div class="container text-center">

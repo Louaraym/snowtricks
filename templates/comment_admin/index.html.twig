@@ -41,7 +41,8 @@
                         </td>
                         <td>
                             <form method="post" action="{{ path('comment_admin_delete', {id: comment.id}) }}" style="display: inline-block"
-                                  onsubmit="return confirm('Etes-vous sûr de vouloir supprimer ce commentaire ?')">
+                                  onsubmit="return confirm(  'Vous êtes sur le point de supprimer ce commentaire.\n'+
+                                                              'Êtes-vous sûr de vouloir continuer ?')">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
                                 <button class="btn btn-outline border-0" ><i class="far fa-trash-alt"></i></button>
