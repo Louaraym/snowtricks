@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,11 +13,11 @@ class ConfirmAccountController extends AbstractController
     /**
      * @Route("/account/confirm/{token}/{username}", name="confirm_account")
      * @param User $user
-     * @param ObjectManager $manager
+     * @param EntityManagerInterface $manager
      * @param $token
      * @return Response
      */
-    public function confirmAccount(User $user, ObjectManager $manager, $token): Response
+    public function confirmAccount(User $user, EntityManagerInterface $manager, $token): Response
     {
         $tokenExist = $user->getToken();
 

@@ -1,9 +1,10 @@
 body {
     background: url("../images/mountains-peaks-snow.jpg") no-repeat fixed;
+    background-size: cover;
 }
 
 .navbar {
-    background: blue;
+    background: #2C3E50;
 }
 
 /* REGISTRATION  LOGIN AND RESETTING PASSWORD*/
@@ -33,31 +34,21 @@ body {
     margin: 100px auto 350px;
 }
 
-/* FOOTER */
-.footer {
-    bottom: 0;
-    width: 100%;
-    height: 80px;
-    line-height: 80px;
-    background-color: white;
-    margin-top: 20px;
-}
-
 /* HOME PAGE */
 .home_page_container, .trick_show_container, .comment_admin_container, .add_trick_container, .edit_trick_container{
     width: 100%;
     max-width: 1000px;
-    margin: 20px auto 0;
     background-color: white;
     padding: 10px;
     border-radius: 20px;
+    margin: 5px auto 90px;
 
 }
 
 .comment_admin_container, .add_trick_container{
     width: 100%;
     max-width: 1000px;
-    margin: 20px auto 0;
+    margin: 5px auto 90px;
     background-color: white;
     padding: 10px;
     border-radius: 20px;
@@ -103,19 +94,25 @@ body {
     max-width: 570px;
     margin: 50px auto 60px;
     background-color: white;
-    padding: 50px 0 400px;
     border-radius: 20px;
+}
+
+.error_404_container, .error_403_container{
+    padding: 50px 0 400px;
 }
 
 .error_container{
-    width: 100%;
-    max-width: 720px;
-    margin: 50px auto 60px;
-    background-color: white;
     padding: 50px 0 330px;
-    border-radius: 20px;
 }
 
-
+/* FOOTER */
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 80px;
+    line-height: 80px;
+    background-color: white;
+}
 
 

@@ -4,7 +4,7 @@ namespace App\Controller\admin;
 
 use App\Form\AvatarUpdateType;
 use App\Service\UploaderHelper;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,10 +16,10 @@ class UserAccountUpdateController extends AbstractController
      * @Route("/user/account/update/{user}", name="user_account_update")
      * @param UploaderHelper $uploaderHelper
      * @param Request $request
-     * @param ObjectManager $manager
+     * @param EntityManagerInterface $manager
      * @return Response
      */
-    public function index(UploaderHelper $uploaderHelper, Request $request, ObjectManager $manager): Response
+    public function index(UploaderHelper $uploaderHelper, Request $request, EntityManagerInterface $manager): Response
     {
         $user = $this->getUser();
         $form = $this->createForm(AvatarUpdateType::class, $user);

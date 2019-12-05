@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Repository\UserRepository;
 use App\Service\Mailer;
 use App\Entity\User;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -27,7 +27,7 @@ class ResettingController extends AbstractController
 {
     /**
      * @Route("/request", name="request_resetting")
-     * @param ObjectManager $manager
+     * @param EntityManagerInterface $manager
      * @param UserRepository $userRepository
      * @param Request $request
      * @param Mailer $mailer
@@ -35,7 +35,7 @@ class ResettingController extends AbstractController
      * @return RedirectResponse|Response
      * @throws Exception
      */
-    public function request(ObjectManager $manager, UserRepository $userRepository, Request $request, Mailer $mailer, TokenGeneratorInterface $tokenGenerator)
+    public function request(EntityManagerInterface $manager, UserRepository $userRepository, Request $request, Mailer $mailer, TokenGeneratorInterface $tokenGenerator)
     {
         // création d'un formulaire "à la volée", afin que l'internaute puisse renseigner son mail
         $form = $this->createFormBuilder()
@@ -99,14 +99,14 @@ class ResettingController extends AbstractController
 
     /**
      * @Route("/{id}/{token}", name="resetting")
-     * @param ObjectManager $manager
+     * @param EntityManagerInterface $manager
      * @param User $user
      * @param $token
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @return RedirectResponse|Response
      */
-    public function resetting(ObjectManager $manager, User $user, $token, Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function resetting(EntityManagerInterface $manager, User $user, $token, Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         // interdit l'accès à la page si:
         // le token associé au membre est null

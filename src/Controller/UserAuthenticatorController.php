@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationType;
 use App\Service\Mailer;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,11 +21,11 @@ class UserAuthenticatorController extends AbstractController
      * @param Mailer $mailer
      * @param UserPasswordEncoderInterface $encoder
      * @param Request $request
-     * @param ObjectManager $manager
+     * @param EntityManagerInterface $manager
      * @param TokenGeneratorInterface $tokenGenerator
      * @return Response
      */
-    public function registration(Mailer $mailer, UserPasswordEncoderInterface $encoder, Request $request, ObjectManager $manager, TokenGeneratorInterface $tokenGenerator): Response
+    public function registration(Mailer $mailer, UserPasswordEncoderInterface $encoder, Request $request, EntityManagerInterface $manager, TokenGeneratorInterface $tokenGenerator): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);

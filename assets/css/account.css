@@ -2,9 +2,8 @@
     border-radius: 0 !important;
 }
 
-/* -- color classes -- */
 .spacepurplebg {
-    background-color :blue;
+    background-color: #2C3E50;
 }
 
 .white {
@@ -23,7 +22,9 @@ div.user-menu-container {
 }
 
 .user-menu-container {
-    margin-bottom: 270px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 5px auto 270px;
 }
 
 div.user-menu-container h4 {
@@ -36,18 +37,25 @@ div.user-menu-container a, div.user-menu-container .btn  {
 }
 
 div.user-menu-container .thumbnail {
-   width:100%;
-   min-height:200px;
+   width: 100%;
+   min-height: 200px;
    border: 0 !important;
    padding: 0;
    border-radius: 0;
 }
 
 /* -- The btn stylings for the btn icons -- */
-.btn-label {position: relative;left: -12px;display: inline-block;padding: 6px 12px;background: rgba(0,0,0,0.15);border-radius: 3px 0 0 3px;}
-.btn-labeled {padding-top: 0;padding-bottom: 0;}
+.btn-label {position: relative;
+    left: -12px;
+    display: inline-block;
+    padding: 6px 12px;
+    background: rgba(0,0,0,0.15);
+    border-radius: 3px 0 0 3px;
+}
 
-/* -- Custom classes for the snippet, won't effect any existing bootstrap classes of your site, but can be reused. -- */
+.btn-labeled {padding-top: 0;
+    padding-bottom: 0;
+}
 
 .user-pad {
     padding: 20px 25px;

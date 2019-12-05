@@ -4,7 +4,7 @@ namespace App\Controller\admin;
 
 use App\Entity\Comment;
 use App\Repository\CommentRepository;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -47,10 +47,10 @@ class CommentAdminController extends AbstractController
      * @Route("admin/comment/{id}", name="comment_admin_delete", methods= "DELETE")
      * @param Comment $comment
      * @param Request $request
-     * @param ObjectManager $manager
+     * @param EntityManagerInterface $manager
      * @return Response
      */
-    public function delete(Comment $comment, Request $request, ObjectManager $manager): Response
+    public function delete(Comment $comment, Request $request, EntityManagerInterface $manager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $comment->getId(), $request->get('_token'))){
                 $manager->remove($comment);

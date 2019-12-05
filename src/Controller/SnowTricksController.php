@@ -6,7 +6,7 @@ use App\Entity\Comment;
 use App\Entity\Trick;
 use App\Form\CommentType;
 use App\Repository\TrickRepository;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,11 +32,11 @@ class SnowTricksController extends AbstractController
      * @Route("/trick/show/{slug}-{id}", name="trick_show", requirements={"slug": "[a-z0-9\-]*"})
      * @param Trick $trick
      * @param Request $request
-     * @param ObjectManager $manager
+     * @param EntityManagerInterface $manager
      * @param String $slug
      * @return Response
      */
-    public function show(Trick $trick, Request $request, ObjectManager $manager, String $slug): Response
+    public function show(Trick $trick, Request $request, EntityManagerInterface $manager, String $slug): Response
     {
         $newSlug = $trick->getSlug();
         if ($newSlug !== $slug){

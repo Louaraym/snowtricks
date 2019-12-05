@@ -3,7 +3,7 @@
 {% block title %}Gestion des commentaires{% endblock %}
 
 {% block body %}
-<div class="comment_admin_container mt-4 text-center">
+<div class="comment_admin_container text-center">
     <div class="row">
         <div class="col-sm-12">
             {% for message in app.flashes('success') %}
@@ -59,7 +59,6 @@
                 </tbody>
             </table>
                 {{ knp_pagination_render(comments) }}
-
         </div>
     </div>
 </div>

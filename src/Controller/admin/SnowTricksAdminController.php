@@ -5,11 +5,10 @@ namespace App\Controller\admin;
 use App\Entity\Trick;
 use App\Form\TrickType;
 use App\Service\UploaderHelper;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,11 +23,10 @@ class SnowTricksAdminController extends AbstractController
      * @IsGranted("ROLE_USER")
      * @param UploaderHelper $uploaderHelper
      * @param Request $request
-     * @param ObjectManager $manager
+     * @param EntityManagerInterface $manager
      * @return Response
-     * @throws Exception
      */
-    public function new(UploaderHelper $uploaderHelper, Request $request, ObjectManager $manager): Response
+    public function new(UploaderHelper $uploaderHelper, Request $request, EntityManagerInterface $manager): Response
     {
         $trick = new Trick();
         $form = $this->createForm(TrickType::class, $trick);
@@ -63,12 +61,11 @@ class SnowTricksAdminController extends AbstractController
      * @param UploaderHelper $uploaderHelper
      * @param Trick $trick
      * @param Request $request
-     * @param ObjectManager $manager
+     * @param EntityManagerInterface $manager
      * @return Response
      * @throws Exception
-     * @var UploadedFile $uploadedFile
      */
-    public function edit(UploaderHelper $uploaderHelper,Trick $trick, Request $request, ObjectManager $manager): Response
+    public function edit(UploaderHelper $uploaderHelper,Trick $trick, Request $request, EntityManagerInterface $manager): Response
     {
         $form = $this->createForm(TrickType::class, $trick);
 
@@ -102,10 +99,10 @@ class SnowTricksAdminController extends AbstractController
      * @IsGranted("TRICK_MANAGE", subject="trick")
      * @param Trick $trick
      * @param Request $request
-     * @param ObjectManager $manager
+     * @param EntityManagerInterface $manager
      * @return Response
      */
-    public function delete(Trick $trick, Request $request, ObjectManager $manager): Response
+    public function delete(Trick $trick, Request $request, EntityManagerInterface $manager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $trick->getId(), $request->get('_token'))){
             $manager->remove($trick);
