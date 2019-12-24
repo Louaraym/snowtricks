@@ -126,6 +126,9 @@
     "knplabs/knp-paginator-bundle": {
         "version": "v4.1.0"
     },
+    "knplabs/knp-time-bundle": {
+        "version": "v1.10.0"
+    },
     "league/flysystem": {
         "version": "1.0.55"
     },

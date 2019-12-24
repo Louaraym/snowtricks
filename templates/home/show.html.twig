@@ -60,11 +60,11 @@
         <hr>
         <div class="metadata mb-4 text-left">
             <h3 class=" h4 trick_author font-weight-bold">Auteur: {{trick.author.username }}</h3>
-            Ajoutée le {{trick.createdAt |  date ('d/m/Y à H:i') }}
+            Ajoutée {{trick.createdAt | ago }}
             dans le groupe : {{ trick.tricksGroup.title }}
             {% if trick.updatedAt %}
             <div class="metadata mb-4 text-left">
-            Modifié le {{trick.updatedAt| date ('d/m/Y à H:i') }}
+            Modifié le {{trick.updatedAt | ago }}
             </div>
             {% endif %}
         </div>
@@ -96,7 +96,7 @@
                         {% endif %}
                         <div class="comment-container d-inline-block pl-3 align-top">
                             <h3 class=" h4 trick_author font-weight-bold">{{comment.authorName.username}}</h3>
-                            <p>  Posté le {{ comment.createdAt | date ('d/m/Y à H:i') }}</p>
+                            <p>  Posté {{ comment.createdAt | ago }}</p>
 {#                            <br>#}
                             <p class="comment"> {{ comment.content | raw }}</p>
                         </div>
