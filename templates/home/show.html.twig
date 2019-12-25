@@ -60,8 +60,16 @@
         <hr>
         <div class="metadata mb-4 text-left">
             <h3 class=" h4 trick_author font-weight-bold">Auteur: {{trick.author.username }}</h3>
-            Ajoutée {{trick.createdAt | ago }}
-            dans le groupe : {{ trick.tricksGroup.title }}
+            <h3 class=" h5 trick_author font-weight-bold">Groupe: {{trick.tricksGroup.title }}</h3>
+            Ajoutée {{trick.createdAt | ago }} &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+            <span class="pl-2 trick-details">
+                 <a href="{{ path('like_trick', {slug: trick.slug, id: trick.id} ) }}" class="far fa-thumbs-up like-trick js-like-trick"></a> &nbsp &nbsp
+                  <span class="js-like-trick-count">{{ trick.likeCount }}</span>
+            </span>
+            <span class="pl-2 article-details">
+                 <a href="{{ path('dislike_trick', {slug: trick.slug, id: trick.id} ) }}" class="far fa-thumbs-down dislike-trick js-dislike-trick"></a> &nbsp &nbsp
+                  <span class="js-dislike-trick-count">{{ trick.dislikeCount }}</span>
+            </span>
             {% if trick.updatedAt %}
             <div class="metadata mb-4 text-left">
             Modifié le {{trick.updatedAt | ago }}
@@ -97,9 +105,9 @@
                         <div class="comment-container d-inline-block pl-3 align-top">
                             <h3 class=" h4 trick_author font-weight-bold">{{comment.authorName.username}}</h3>
                             <p>  Posté {{ comment.createdAt | ago }}</p>
-{#                            <br>#}
                             <p class="comment"> {{ comment.content | raw }}</p>
                         </div>
+                        <hr>
                     </div>
                 </div>
             {% endfor %}
@@ -107,3 +115,9 @@
     </div>
     </div>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('trick_show') }}
+{% endblock %}
+

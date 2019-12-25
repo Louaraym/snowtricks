@@ -17,3 +17,4 @@ window.$ = $;
 require('./uploadFile.js');
 require('./addVideos.js');
 require('./admin_trick_form.js');
+require('./trick_show.js');

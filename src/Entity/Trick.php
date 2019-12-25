@@ -80,6 +80,16 @@ class Trick
      */
     private $videos;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $likeCount =0;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $dislikeCount =0;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -233,6 +243,44 @@ class Trick
     public function setVideos(?array $videos): self
     {
         $this->videos = $videos;
+
+        return $this;
+    }
+
+    public function getLikeCount(): ?int
+    {
+        return $this->likeCount;
+    }
+
+    public function setLikeCount(int $likeCount): self
+    {
+        $this->likeCount = $likeCount;
+
+        return $this;
+    }
+
+    public function incrementLikeCount(): self
+    {
+        ++$this->likeCount;
+
+        return $this;
+    }
+
+    public function getDislikeCount(): ?int
+    {
+        return $this->dislikeCount;
+    }
+
+    public function setDislikeCount(int $dislikeCount): self
+    {
+        $this->dislikeCount = $dislikeCount;
+
+        return $this;
+    }
+
+    public function incrementDislikeCount(): self
+    {
+        ++$this->dislikeCount;
 
         return $this;
     }

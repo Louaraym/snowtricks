@@ -8,6 +8,7 @@ use App\Form\CommentType;
 use App\Repository\TrickRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -69,4 +70,33 @@ class SnowTricksController extends AbstractController
         ]);
     }
 
-  }
+    /**
+     * @Route("/trick/show/{slug}-{id}/like", name="like_trick", methods={"POST"}, requirements={"slug": "[a-z0-9\-]*"})
+     * @param Trick $trick
+     * @param EntityManagerInterface $em
+     * @return JsonResponse
+     */
+    public function likeTrick(Trick $trick, EntityManagerInterface $em): JsonResponse
+    {
+        $trick->incrementLikeCount();
+        $em->flush();
+
+        return new JsonResponse(['likes' => $trick->getLikeCount()]);
+    }
+
+    /**
+     * @Route("/trick/show/{slug}-{id}/dislike", name="dislike_trick", methods={"POST"}, requirements={"slug": "[a-z0-9\-]*"})
+     * @param Trick $trick
+     * @param EntityManagerInterface $em
+     * @return JsonResponse
+     */
+    public function dislikeTrick(Trick $trick, EntityManagerInterface $em): JsonResponse
+    {
+        $trick->incrementDislikeCount();
+        $em->flush();
+
+        return new JsonResponse(['likes' => $trick->getDislikeCount()]);
+    }
+
+
+}

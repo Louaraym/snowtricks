@@ -34,7 +34,7 @@
                             {{ comment.authorName.username }}
                         </td>
                         <td style="width: 20%;">
-                            {{ comment.content }}
+                            {{ comment.content|truncate }}
                         </td>
                         <td>
                             {{ comment.createdAt | date('d/m/y')}} à {{comment.createdAt | date('H:i')}}
