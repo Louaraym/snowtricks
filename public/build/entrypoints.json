@@ -1,0 +1,72 @@
+{
+  "entrypoints": {
+    "app": {
+      "js": [
+        "/build/runtime.5e3ab09c.js",
+        "/build/0.c0851790.js",
+        "/build/1.398c14ec.js",
+        "/build/app.1d0dffca.js"
+      ],
+      "css": [
+        "/build/app.84566c50.css"
+      ]
+    },
+    "uploadFile": {
+      "js": [
+        "/build/runtime.5e3ab09c.js",
+        "/build/0.c0851790.js",
+        "/build/1.398c14ec.js",
+        "/build/uploadFile.806b4533.js"
+      ]
+    },
+    "admin_trick_form": {
+      "js": [
+        "/build/runtime.5e3ab09c.js",
+        "/build/0.c0851790.js",
+        "/build/1.398c14ec.js",
+        "/build/admin_trick_form.399aa91a.js"
+      ],
+      "css": [
+        "/build/admin_trick_form.8eb83d97.css"
+      ]
+    },
+    "addVideos": {
+      "js": [
+        "/build/runtime.5e3ab09c.js",
+        "/build/0.c0851790.js",
+        "/build/1.398c14ec.js",
+        "/build/addVideos.88e99159.js"
+      ]
+    },
+    "account": {
+      "js": [
+        "/build/runtime.5e3ab09c.js",
+        "/build/account.56331426.js"
+      ],
+      "css": [
+        "/build/account.a8da33bb.css"
+      ]
+    },
+    "trick_show": {
+      "js": [
+        "/build/runtime.5e3ab09c.js",
+        "/build/0.c0851790.js",
+        "/build/trick_show.11905d65.js"
+      ]
+    }
+  },
+  "integrity": {
+    "/build/runtime.5e3ab09c.js": "sha384-/Zh0hTCgqMfXwZfeMIiueZzsKiHkvtqEOzKpZAuznIbgqg1DQpUQAwwNlO/9ToVH",
+    "/build/0.c0851790.js": "sha384-Dt6rncfcL40e91sPDLy/fZ8XgfH6ZZmLY1+ajXaPmGFGTb5XNtWS5jmf84NoZT/f",
+    "/build/1.398c14ec.js": "sha384-OQUCWU7qxeTU9xE530x3bBqcB68LHBW/8nGvIluukFcwXqKemqUzWfWaLv4iuIvX",
+    "/build/app.1d0dffca.js": "sha384-IzDT5z0mDFuvEVmP9mls3pRTKJnxUAx7OGXegkjOHmN/7DUTGLz+GWCyx9jRl/5v",
+    "/build/app.84566c50.css": "sha384-qTkI/NTCZ11aEB4zv7MpltOoJPabO8gtXbzbxtLwGAtJFHSue0NJrI5v2Cjz200K",
+    "/build/uploadFile.806b4533.js": "sha384-NIqXoQvmHRdZmZqIZPUVuKTMm1FSyL8lwgZOEJaHQw0gRcOH12LaOWEV0QfIQ35O",
+    "/build/admin_trick_form.399aa91a.js": "sha384-QKZngvwftU5i9BS4fbdZEsG9PppVYFB3UBlv6O/cGv7EdTNCeQX2lWxX8R49t7Cr",
+    "/build/admin_trick_form.8eb83d97.css": "sha384-WZ8xRBclhyH7fokj0+Nvx3Mq3ha6LJLMz3dlZXO1/7AZfS+dDbyFlEZRKDdBqjmK",
+    "/build/addVideos.88e99159.js": "sha384-zDoVwt3GlAkxGqcpT+db+bR79VH2avp7BfHUstyphOi/3p5w9H/Dy0rGQ7PyyHb1",
+    "/build/account.56331426.js": "sha384-elsmDRMH7XeYa1PBsqWVKIsERQnHiJ56QoTazj7e6BOU0OAsKUXGRNnQbcH9scZn",
+    "/build/account.a8da33bb.css": "sha384-LSnZGLJ7pVW/2Rx7uZb1sv1tPzgrYgRZ6AX3X3D2RqhTR2yO9I/dCcQ4iVPNZuRl",
+    "/build/trick_show.11905d65.js": "sha384-3rF8J7T5x1iys0elNBo7UtduLp9AdCpWnivFok+KHg33xRh8LshGIJqdRnrpw3dw"
+  }
+}
