@@ -1,6 +1,3 @@
-import Dropzone from 'dropzone'
-import 'dropzone/dist/min/dropzone.min.css'
-
 Dropzone.autoDiscover = false;
 
 $(document).ready(function() {
@@ -59,10 +56,10 @@ class TrickImageList
     }
 
     handleTrickImageDelete(event) {
-
         const $li = $(event.currentTarget).closest('.list-group-item');
         const id = $li.data('id');
         $li.addClass('disabled');
+
         $.ajax({
             url: '/admin/trick/image/'+id,
             method: 'DELETE'
@@ -77,14 +74,14 @@ class TrickImageList
     render() {
         const itemsHtml = this.trickImages.map(trickImage => {
         return `
-                <li class="list-group-item d-flex justify-content-between align-items-center" data-id="${trickImage.id}">
-                    ${trickImage.originalFilename}
-                    <span>
-                        <button class="js-trickImage-delete btn btn-link btn-sm">
-                        <span class="fa fa-trash"></span></button>
-                    </span>             
-                </li>
-                `
+<li class="list-group-item d-flex justify-content-between align-items-center" data-id="${trickImage.id}">
+    ${trickImage.originalFilename}
+    <span>
+        <button class="js-trickImage-delete btn btn-link btn-sm">
+        <span class="fa fa-trash"></span></button>
+    </span>             
+</li>
+`
         });
         this.$element.html(itemsHtml.join(''));
     }

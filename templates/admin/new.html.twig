@@ -9,7 +9,9 @@
         {{ include('admin/_form.html.twig', { button: 'Créer'}) }}
     </div>
 {% endblock %}
-
-
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/addVideos.js') }}"></script>
+{% endblock %}
 
 
